@@ -7,4 +7,5 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 
-$routes->get('/content-Planner', 'ContentPlannerController::index');
+$routes->get('/content-planner', 'ContentPlannerController::index');
+$routes->post('/content-planner/add', 'ContentPlannerController::add');
