@@ -22,18 +22,19 @@
         <!-- place navbar here -->
     </header>
     <main>
-
-        <div class="container py-5">
+        <h3 class="py-5 text-center">Hashtag Generator</h3>
+        <div class="container">
             <div class="mb-3">
-                <label for="" class="form-label">Input Hashtag (supports Indonesian language)</label>
+                <label for="" class="form-label">Input Hashtag</label>
                 <input
                     type="text"
                     class="form-control"
                     id="hashtag-input"
                     aria-describedby="helpId"
-                    placeholder="Input Hashtag (e.g. #selamatpagi, #indonesia, #jakarta)" />
+                    placeholder="Input Kategori Hashtag tanpa spasi" />
             </div>
             <button class="btn btn-primary" id="generate-btn">Generate</button>
+            <button class="btn btn-success" id="copy-btn">Copy Hashtags</button>
             <div id="hasil"></div>
         </div>
 
@@ -53,51 +54,45 @@
         crossorigin="anonymous"></script>
 
     <script>
-        // Fungsi untuk menghasilkan hashtag
-        function generateHashtags(kataKata) {
-            // API endpoint untuk menghasilkan hashtag
-            const apiEndpoint = "https://api.datamuse.com/words";
+        const generateBtn = document.getElementById('generate-btn');
+        const hashtagInput = document.getElementById('hashtag-input');
+        const hasilDiv = document.getElementById('hasil');
+        const copyBtn = document.getElementById('copy-btn');
 
-            // Fungsi untuk mengirimkan permintaan ke API
-            async function getHashtags(kata) {
-                const response = await fetch(`${apiEndpoint}?rel_trg=${encodeURIComponent(kata)}`);
-                const data = await response.json();
-                return data;
+        generateBtn.addEventListener('click', async () => {
+            const query = hashtagInput.value.trim();
+            if (query === '') {
+                alert('Silakan masukkan hashtag');
+                return;
             }
 
-            // Mengirimkan permintaan ke API untuk setiap kata
-            async function getHashtagsForAllWords() {
-                let hasil = [];
-                for (const kata of kataKata) {
-                    const hashtags = await getHashtags(kata);
-                    hasil = [...hasil, ...hashtags];
+            const url = `https://hash-tag-generator.p.rapidapi.com/get_has_tags?query=${query}&language=en`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': '6ead1a6d3dmshde21c2edcfce718p195bd9jsnb549113a5236',
+                    'x-rapidapi-host': 'hash-tag-generator.p.rapidapi.com'
                 }
-                return hasil;
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                const hasil = result.data.results.map((item, index) => {
+                    return `<input type="checkbox" id="hashtag-${index}" value="${item}"> <label for="hashtag-${index}">${item}</label><br>`;
+                }).join('');
+                hasilDiv.innerHTML = hasil;
+            } catch (error) {
+                console.error(error);
+                alert('Gagal mengambil data');
             }
+        });
 
-            // Mengubah hasil menjadi hashtag
-            async function generateHashtags() {
-                const hasil = await getHashtagsForAllWords();
-                const hashtags = hasil.map((item) => `#${item.word}`);
-                return hashtags;
-            }
-
-            return generateHashtags();
-        }
-
-        // Event listener untuk tombol generate
-        document.getElementById("generate-btn").addEventListener("click", async (e) => {
-            e.preventDefault();
-            const kata = document.getElementById("hashtag-input").value;
-            const kataKata = kata.split(",");
-            const hasil = await generateHashtags(kataKata);
-            const hasilElement = document.getElementById("hasil");
-            hasilElement.innerHTML = "";
-            hasil.forEach((hashtag) => {
-                const p = document.createElement("p");
-                p.textContent = hashtag;
-                hasilElement.appendChild(p);
-            });
+        copyBtn.addEventListener('click', () => {
+            const selectedHashtags = Array.from(hasilDiv.querySelectorAll('input[type="checkbox"]:checked')).map((checkbox) => checkbox.value);
+            const copyText = selectedHashtags.join(', ');
+            navigator.clipboard.writeText(copyText);
+            alert(`Hashtags telah dicopy: ${copyText}`);
         });
     </script>
 </body>
