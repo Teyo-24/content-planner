@@ -66,31 +66,27 @@
                 return;
             }
 
-            const url = `https://hash-tag-generator.p.rapidapi.com/get_has_tags?query=${query}&language=en`;
-            const options = {
-                method: 'GET',
-                headers: {
-                    'x-rapidapi-key': '6ead1a6d3dmshde21c2edcfce718p195bd9jsnb549113a5236',
-                    'x-rapidapi-host': 'hash-tag-generator.p.rapidapi.com'
-                }
-            };
-
             try {
-                const response = await fetch(url, options);
+                const response = await fetch(`/generate-hashtags?query=${encodeURIComponent(query)}`);
                 const result = await response.json();
-                const hasil = result.data.results.map((item, index) => {
-                    return `<input type="checkbox" id="hashtag-${index}" value="${item}"> <label for="hashtag-${index}">${item}</label><br>`;
-                }).join('');
-                hasilDiv.innerHTML = hasil;
+                if (response.ok) {
+                    const hasil = result.data.results.map((item, index) => {
+                        return `<input type="checkbox" id="hashtag-${index}" value="${item}"> <label for="hashtag-${index}">${item}</label><br>`;
+                    }).join('');
+                    hasilDiv.innerHTML = hasil;
+                } else {
+                    alert(result.error || 'Gagal mengambil data');
+                }
             } catch (error) {
                 console.error(error);
                 alert('Gagal mengambil data');
             }
         });
 
+
         copyBtn.addEventListener('click', () => {
             const selectedHashtags = Array.from(hasilDiv.querySelectorAll('input[type="checkbox"]:checked')).map((checkbox) => checkbox.value);
-            const copyText = selectedHashtags.join(', ');
+            const copyText = selectedHashtags.join(' ');
             navigator.clipboard.writeText(copyText);
             alert(`Hashtags telah dicopy: ${copyText}`);
         });

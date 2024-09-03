@@ -6,6 +6,6 @@ class Home extends BaseController
 {
     public function index(): string
     {
-        return view('hashtag/hashtag');
+        return view('welcome_message');
     }
 }
