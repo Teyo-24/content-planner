@@ -12,6 +12,13 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class ContentPlannerController extends BaseController
 {
+
+    public function calender()
+    {
+        $content = new SosialMedia();
+        return view('content-planner/content-callender');
+    }
+
     public function index()
     {
         $modelSosmed = new SosialMedia();

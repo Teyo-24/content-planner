@@ -123,7 +123,7 @@
             </div>
             <!-- end nama data -->
 
-            <table class="table table-bordered">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -157,7 +157,7 @@
                 <hr class="line-separatorkecil">
             </div>
             <!-- end nama data -->
-            <table class="table table-bordered">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -191,7 +191,7 @@
                 <hr class="line-separatorkecil">
             </div>
             <!-- end nama data -->
-            <table class="table table-bordered">
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>No</th>

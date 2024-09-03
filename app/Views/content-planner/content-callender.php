@@ -62,52 +62,46 @@
             border-radius: 5px;
             text-align: center;
             position: absolute;
-			width: 40%;
+            width: 40%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             cursor: pointer;
         }
+
+        @media (max-width: 768px) {
+
+            .table-bordered th,
+            .table-bordered td {
+                width: 50px;
+                height: 50px;
+            }
+
+            .event-rect {
+                width: 80%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .calendar-controls {
+                flex-direction: column;
+            }
+
+            .calendar-controls input,
+            .calendar-controls button {
+                margin-top: 0.5rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-	<!-- navbar -->
+    <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <a class="navbar-brand" href="#">Content Calendar</a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Dropdown
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li>
-                </ul>
-                <div class="pe-3">
+                <div class="ms-auto pe-3">
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -124,90 +118,93 @@
         </div>
     </nav>
 
-	<!-- callender -->
+    <!-- callender -->
     <div class="container mt-4">
         <h3>Content Calendar</h3>
         <hr>
         <div class="calendar-container mt-4">
-            <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <h5 class="m-0">September 2024</h5>
-                <div class="calendar-controls d-flex align-items-center">
-                    <button class="btn btn-light me-3">
+                <div class="calendar-controls d-flex align-items-center flex-wrap">
+                    <button class="btn btn-light me-3 mb-2 mb-md-0">
                         <i class="bi bi-chevron-left"></i>
                     </button>
-                    <button class="btn btn-light">
+                    <button class="btn btn-light mb-2 mb-md-0">
                         <i class="bi bi-chevron-right"></i>
                     </button>
-                    <input type="datetime-local" class="ms-3">
-                    <button type="button" class="btn btn-success ms-3">Add Data +</button>
+                    <input type="datetime-local" class="ms-3 mb-2 mb-md-0">
+                    <button type="button" class="btn btn-success ms-3 mt-2 mt-md-0">Add Data +</button>
                 </div>
             </div>
+
             <div class="calendar-header mt-2"></div>
-            <table class="table table-bordered text-center mt-4">
-                <thead>
-                    <tr>
-                        <th>Sunday</th>
-                        <th>Monday</th>
-                        <th>Tuesday</th>
-                        <th>Wednesday</th>
-                        <th>Thursday</th>
-                        <th>Friday</th>
-                        <th>Saturday</th>
-                    </tr>
-                </thead>
-                <tbody class="text-end">
-                    <tr>
-                        <td>
-                            1
-                            <div class="event-rect" data-bs-toggle="modal" data-bs-target="#eventModal">Foto</div>
-                        </td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                        <td>6</td>
-                        <td>7</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>9</td>
-                        <td>10</td>
-                        <td>11</td>
-                        <td>12
-							<div class="event-rect" data-bs-toggle="modal" data-bs-target="#eventModal">Video</div>
-						</td>
-                        <td>13</td>
-                        <td>14</td>
-                    </tr>
-                    <tr>
-                        <td>15</td>
-                        <td>16</td>
-                        <td>17</td>
-                        <td>18</td>
-                        <td>19</td>
-                        <td>20</td>
-                        <td>21</td>
-                    </tr>
-                    <tr>
-                        <td>22</td>
-                        <td>23</td>
-                        <td>24</td>
-                        <td>25</td>
-                        <td>26</td>
-                        <td>27</td>
-                        <td>28</td>
-                    </tr>
-                    <tr>
-                        <td>29</td>
-                        <td>30</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td>3</td>
-                        <td>4</td>
-                        <td>5</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-bordered text-center mt-4">
+                    <thead>
+                        <tr>
+                            <th>Sunday</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-end">
+                        <tr>
+                            <td>
+                                1
+                                <div class="event-rect" data-bs-toggle="modal" data-bs-target="#eventModal">Foto</div>
+                            </td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>9</td>
+                            <td>10</td>
+                            <td>11</td>
+                            <td>12
+                                <div class="event-rect" data-bs-toggle="modal" data-bs-target="#eventModal">Video</div>
+                            </td>
+                            <td>13</td>
+                            <td>14</td>
+                        </tr>
+                        <tr>
+                            <td>15</td>
+                            <td>16</td>
+                            <td>17</td>
+                            <td>18</td>
+                            <td>19</td>
+                            <td>20</td>
+                            <td>21</td>
+                        </tr>
+                        <tr>
+                            <td>22</td>
+                            <td>23</td>
+                            <td>24</td>
+                            <td>25</td>
+                            <td>26</td>
+                            <td>27</td>
+                            <td>28</td>
+                        </tr>
+                        <tr>
+                            <td>29</td>
+                            <td>30</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            <td>5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -227,7 +224,7 @@
                         <li>Tempat: Studio Fotografi</li>
                         <li>Catatan: Siapkan peralatan fotografi.</li>
                     </ul>
-					<div class="text-center">
+                    <div class="text-center">
                         <img src="https://via.placeholder.com/150" alt="Foto Kegiatan" class="img-fluid">
                     </div>
                 </div>
@@ -239,32 +236,6 @@
         </div>
     </div>
 
-	<div class="modal fade" id="eventModal" tabindex="-12" aria-labelledby="eventModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">Detail Kegiatan</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Detail kegiatan pada tanggal 12 September 2024:</p>
-                    <ul>
-                        <li>Kegiatan: Pengambilan Video</li>
-                        <li>Waktu: 101:00 APM - 15:00 PM</li>
-                        <li>Tempat: Studio 3</li>
-                        <li>Catatan: Siapkan peralatan VideoGrafi.</li>
-                    </ul>
-					<div class="text-center">
-                        <img src="https://via.placeholder.com/150" alt="Foto Kegiatan" class="img-fluid">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 </body>
