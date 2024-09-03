@@ -96,6 +96,17 @@ class ContentPlannerController extends BaseController
         $this->statusModel = new Status();
     }
 
+    public function add_sosial_media()
+    {
+        $data = [
+            'nama_sosial_media' => $this->request->getPost('nama_sosial_media'),
+            'warna_sosial_media' => $this->request->getPost('warna_sosial_media'),
+        ];
+
+        $this->sosialMediaModel->insert($data);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
     public function update_sosial_media()
     {
         $id = $this->request->getPost('id');
@@ -110,14 +121,103 @@ class ContentPlannerController extends BaseController
         return $this->response->setJSON(['status' => 'failed'], 400);
     }
 
-    public function add_sosial_media()
+    public function delete_sosial_media()
+    {
+        $id = $this->request->getPost('id');
+        $this->sosialMediaModel->delete($id);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function add_content_type()
     {
         $data = [
-            'nama_sosial_media' => $this->request->getPost('nama_sosial_media'),
-            'warna_sosial_media' => $this->request->getPost('warna_sosial_media'),
+            'nama_content_type' => $this->request->getPost('nama_content_type'),
         ];
 
-        $this->sosialMediaModel->insert($data);
+        $this->contentTypeModel->insert($data);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function update_content_type()
+    {
+        $id = $this->request->getPost('id');
+        $column = $this->request->getPost('column');
+        $value = $this->request->getPost('value');
+
+        if (in_array($column, ['nama_content_type'])) {
+            $this->contentTypeModel->update($id, [$column => $value]);
+            return $this->response->setJSON(['status' => 'success']);
+        }
+
+        return $this->response->setJSON(['status' => 'failed'], 400);
+    }
+
+    public function delete_content_type()
+    {
+        $id = $this->request->getPost('id');
+        $this->contentTypeModel->delete($id);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function add_content_pillar()
+    {
+        $data = [
+            'nama_content_pillar' => $this->request->getPost('nama_content_pillar'),
+        ];
+
+        $this->contentPillarModel->insert($data);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function update_content_pillar()
+    {
+        $id = $this->request->getPost('id');
+        $column = $this->request->getPost('column');
+        $value = $this->request->getPost('value');
+
+        if (in_array($column, ['nama_content_pillar'])) {
+            $this->contentPillarModel->update($id, [$column => $value]);
+            return $this->response->setJSON(['status' => 'success']);
+        }
+
+        return $this->response->setJSON(['status' => 'failed'], 400);
+    }
+
+    public function delete_content_pillar()
+    {
+        $id = $this->request->getPost('id');
+        $this->contentPillarModel->delete($id);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function add_status()
+    {
+        $data = [
+            'nama_status' => $this->request->getPost('nama_status'),
+        ];
+
+        $this->statusModel->insert($data);
+        return $this->response->setJSON(['status' => 'success']);
+    }
+
+    public function update_status()
+    {
+        $id = $this->request->getPost('id');
+        $column = $this->request->getPost('column');
+        $value = $this->request->getPost('value');
+
+        if (in_array($column, ['nama_status'])) {
+            $this->statusModel->update($id, [$column => $value]);
+            return $this->response->setJSON(['status' => 'success']);
+        }
+
+        return $this->response->setJSON(['status' => 'failed'], 400);
+    }
+
+    public function delete_status()
+    {
+        $id = $this->request->getPost('id');
+        $this->statusModel->delete($id);
         return $this->response->setJSON(['status' => 'success']);
     }
 }

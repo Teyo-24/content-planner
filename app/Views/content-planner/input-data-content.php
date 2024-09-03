@@ -37,7 +37,11 @@
                 <?php foreach ($sosmeds as $item): ?>
                     <tr>
                         <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="nama_sosial_media"><?= esc($item['nama_sosial_media']) ?></td>
-                        <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="warna_sosial_media"><?= esc($item['warna_sosial_media']) ?></td>
+                        <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="warna_sosial_media"><?= esc($item['warna_sosial_media']) ?>
+                            <div style="display: flex; align-items: center;">
+                                <div style="width: 20px; height: 20px; background-color: <?= esc($item['warna_sosial_media']) ?>; border: 1px solid #000; margin-right: 5px;"></div>
+                            </div>
+                        </td>
                         <td><button class="btn btn-danger btn-sm delete-sosial-media" data-id="<?= $item['id_sosial_media'] ?>">Delete</button></td>
                     </tr>
                 <?php endforeach; ?>
