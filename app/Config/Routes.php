@@ -21,3 +21,4 @@ $routes->get('/input-data-content', 'ContentPlannerController::all_input');
 
 // Sosial Media
 $routes->post('/update_sosial_media', 'ContentPlannerController::update_sosial_media');
+$routes->post('/add_sosial_media', 'ContentPlannerController::add_sosial_media');
