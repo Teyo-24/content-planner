@@ -15,113 +15,207 @@
         td[contenteditable="true"]:focus {
             background-color: #e9ecef;
         }
+
+        .card {
+            background-color: #ffff;
+            padding: 20px;
+            border-radius: 30px;
+            margin-bottom: 20px;
+        }
+
+        .card-content {
+            padding: 15px;
+            background-color: #87D5C8;
+        }
+
+        .header {
+            margin-top: 30px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .line-separator {
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+            border: none;
+            margin-top: 20px;
+        }
+
+        .textcontent {
+            margin-top: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .line-separatorkecil {
+            width: 10%;
+            height: 2px;
+            background-color: #000;
+            margin: 10px 0;
+        }
+
+        .input-smaller {
+            width: 65%;
+        }
     </style>
 </head>
 
-<body>
+<body class="card-content">
 
-    <div class="container mt-4">
-        <h1>Input Data Content</h1>
+    <div class="container">
+        <div class="header">
+            <h2>Input Data Content</h2>
+            <hr class="line-separator">
+        </div>
 
-        <!-- Tabel Sosial Media -->
-        <h3>Sosial Media</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Nama Sosial Media</th>
-                    <th>Warna Sosial Media</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($sosmeds as $item): ?>
+        <div class="card">
+            <!-- Tabel Sosial Media -->
+            <!-- start nama data -->
+            <div class="textcontent">
+                <h5>Media Sosial</h5>
+                <hr class="line-separatorkecil">
+            </div>
+            <!-- end nama data -->
+
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="nama_sosial_media"><?= esc($item['nama_sosial_media']) ?></td>
-                        <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="warna_sosial_media">
-                            <div style="display: flex; align-items: center;">
-                                <div style="width: 20px; height: 20px; background-color: <?= esc($item['warna_sosial_media']) ?>; border: 1px solid #000; margin-right: 5px;"></div>
-                                <span><?= esc($item['warna_sosial_media']) ?></span>
-                            </div>
+                        <th>No</th>
+                        <th>Nama Sosial Media</th>
+                        <th>Warna Sosial Media</th>
+                        <th style="text-align: center;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1 ?>
+                    <?php foreach ($sosmeds as $item): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="nama_sosial_media"><?= esc($item['nama_sosial_media']) ?></td>
+                            <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="warna_sosial_media">
+                                <div style="display: flex; align-items: center;">
+                                    <div style="width: 20px; height: 20px; background-color: <?= esc($item['warna_sosial_media']) ?>; border: 1px solid #000; margin-right: 5px;"></div>
+                                    <span><?= esc($item['warna_sosial_media']) ?></span>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-sosial-media" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_sosial_media'] ?>">Delete</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <th class="py-3">New Data</th>
+                        <td><input type="text" id="newNamaSosialMedia" class="form-control" placeholder="Nama Sosial Media"></td>
+                        <td><input type="color" id="newWarnaSosialMedia" class="form-control" value="#000000"></td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" id="addSosialMedia" style="width: 100%; min-width: 80px;">Add Data</button>
                         </td>
-                        <td><button class="btn btn-danger btn-sm delete-sosial-media" data-id="<?= $item['id_sosial_media'] ?>">Delete</button></td>
                     </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <td><input type="text" id="newNamaSosialMedia" class="form-control" placeholder="Nama Sosial Media"></td>
-                    <td><input type="color" id="newWarnaSosialMedia" class="form-control" value="#000000"></td>
-                    <td><button class="btn btn-primary btn-sm" id="addSosialMedia">Add Sosial Media</button></td>
-                </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
 
-        <!-- Tabel Content Type -->
-        <h3>Content Type</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Nama Content Type</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($c_types as $item): ?>
-                    <tr>
-                        <td contenteditable="true" data-id="<?= $item['id_content_type'] ?>" data-column="nama_content_type"><?= esc($item['nama_content_type']) ?></td>
-                        <td><button class="btn btn-danger btn-sm delete-content-type" data-id="<?= $item['id_content_type'] ?>">Delete</button></td>
-                    </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <td><input type="text" id="newNamaContentType" class="form-control" placeholder="Nama Content Type"></td>
-                    <td><button class="btn btn-primary btn-sm" id="addContentType">Add Content Type</button></td>
-                </tr>
-            </tbody>
-        </table>
+            <!-- Tabel Content Type -->
+            <!-- start nama data -->
+            <div class="textcontent mt-5">
+                <h5>Content Type</h5>
+                <hr class="line-separatorkecil">
+            </div>
+            <!-- end nama data -->
 
-        <!-- Tabel Content Pillar -->
-        <h3>Content Pillar</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Nama Content Pillar</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($c_pillars as $item): ?>
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td contenteditable="true" data-id="<?= $item['id_content_pillar'] ?>" data-column="nama_content_pillar"><?= esc($item['nama_content_pillar']) ?></td>
-                        <td><button class="btn btn-danger btn-sm delete-content-pillar" data-id="<?= $item['id_content_pillar'] ?>">Delete</button></td>
+                        <th>No</th>
+                        <th>Nama Content Type</th>
+                        <th style="text-align: center;">Aksi</th>
                     </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <td><input type="text" id="newNamaContentPillar" class="form-control" placeholder="Nama Content Pillar"></td>
-                    <td><button class="btn btn-primary btn-sm" id="addContentPillar">Add Content Pillar</button></td>
-                </tr>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php $i = 1 ?>
+                    <?php foreach ($c_types as $item): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td contenteditable="true" data-id="<?= $item['id_content_type'] ?>" data-column="nama_content_type"><?= esc($item['nama_content_type']) ?></td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_content_type'] ?>">Delete</button>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <th class="py-3">New Data</th>
+                        <td><input type="text" id="newNamaContentType" class="form-control" placeholder="Nama Content Type"></td>
+                        <td><button class="btn btn-primary btn-sm" id="addContentType" style="width: 100%; min-width: 80px;">Add Data</button></td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <!-- Tabel Status -->
-        <h3>Status</h3>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Nama Status</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($statuses as $item): ?>
+            <!-- Tabel Content Pillar -->
+            <!-- start nama data -->
+            <div class="textcontent mt-5">
+                <h5>Content Pillar</h5>
+                <hr class="line-separatorkecil">
+            </div>
+            <!-- end nama data -->
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td contenteditable="true" data-id="<?= $item['id_status'] ?>" data-column="nama_status"><?= esc($item['nama_status']) ?></td>
-                        <td><button class="btn btn-danger btn-sm delete-status" data-id="<?= $item['id_status'] ?>">Delete</button></td>
+                        <th>No</th>
+                        <th>Nama Content Pillar</th>
+                        <th style="text-align: center;">Aksi</th>
                     </tr>
-                <?php endforeach; ?>
-                <tr>
-                    <td><input type="text" id="newNamaStatus" class="form-control" placeholder="Nama Status"></td>
-                    <td><button class="btn btn-primary btn-sm" id="addStatus">Add Status</button></td>
-                </tr>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php $i = 1 ?>
+                    <?php foreach ($c_pillars as $item): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td contenteditable="true" data-id="<?= $item['id_content_pillar'] ?>" data-column="nama_content_pillar"><?= esc($item['nama_content_pillar']) ?></td>
+                            <td><button class="btn btn-danger btn-sm delete-content-pillar" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_content_pillar'] ?>">Delete</button></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <th class="py-3">New Data</th>
+                        <td><input type="text" id="newNamaContentPillar" class="form-control" placeholder="Nama Content Pillar"></td>
+                        <td class="text-center">
+                            <button class="btn btn-primary btn-sm" id="addContentPillar" style="width: 100%; min-width: 80px;">Add Data</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <!-- Tabel Status -->
+            <!-- start nama data -->
+            <div class="textcontent mt-5">
+                <h5>Status Content</h5>
+                <hr class="line-separatorkecil">
+            </div>
+            <!-- end nama data -->
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Status</th>
+                        <th style="text-align: center;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 1 ?>
+                    <?php foreach ($statuses as $item): ?>
+                        <tr>
+                            <td><?= $i++ ?></td>
+                            <td contenteditable="true" data-id="<?= $item['id_status'] ?>" data-column="nama_status"><?= esc($item['nama_status']) ?></td>
+                            <td><button class="btn btn-danger btn-sm delete-status" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_status'] ?>">Delete</button></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <th class="py-3">New Data</th>
+                        <td><input type="text" id="newNamaStatus" class="form-control" placeholder="Nama Status"></td>
+                        <td><button class="btn btn-primary btn-sm" id="addStatus" style="width: 100%; min-width: 80px;">Add Data</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -155,13 +249,13 @@
                 var table = $(this).closest('table').attr('id');
 
                 var url = '';
-                if ($(this).closest('table').find('th').first().text().includes('Sosial Media')) {
+                if ($(this).closest('table').find('th').eq(1).text().includes('Sosial Media')) {
                     url = '<?= base_url('/update_sosial_media') ?>';
-                } else if ($(this).closest('table').find('th').first().text().includes('Content Type')) {
+                } else if ($(this).closest('table').find('th').eq(1).text().includes('Content Type')) {
                     url = '<?= base_url('/update_content_type') ?>';
-                } else if ($(this).closest('table').find('th').first().text().includes('Content Pillar')) {
+                } else if ($(this).closest('table').find('th').eq(1).text().includes('Content Pillar')) {
                     url = '<?= base_url('/update_content_pillar') ?>';
-                } else if ($(this).closest('table').find('th').first().text().includes('Status')) {
+                } else if ($(this).closest('table').find('th').eq(1).text().includes('Status')) {
                     url = '<?= base_url('/update_status') ?>';
                 }
 
