@@ -15,8 +15,36 @@ class ContentPlannerController extends BaseController
 
     public function calender()
     {
-        $content = new SosialMedia();
-        return view('content-planner/content-callender');
+        $modelCPlanner = new ContentPlanner();
+        $modelSosialMedia = new SosialMedia();
+
+        // Mengambil semua data dari tabel content_planner
+        $content_planner = $modelCPlanner->findAll();
+        $sosial_media = $modelSosialMedia->findAll();
+
+        // Membuat array untuk memetakan nama sosial media ke warna sosial media
+        $socialMediaColors = [];
+        foreach ($sosial_media as $media) {
+            $socialMediaColors[$media['nama_sosial_media']] = $media['warna_sosial_media'];
+        }
+
+        // Mengelompokkan data berdasarkan tanggal
+        $eventsByDate = [];
+        foreach ($content_planner as $event) {
+            $date = date('Y-m-d', strtotime($event['created_at']));
+            if (!isset($eventsByDate[$date])) {
+                $eventsByDate[$date] = [];
+            }
+            $eventsByDate[$date][] = [
+                'content_pillar' => $event['content_pillar'],
+                'sosial_media' => $event['sosial_media']
+            ];
+        }
+
+        $data['eventsByDate'] = $eventsByDate;
+        $data['socialMediaColors'] = $socialMediaColors;
+
+        return view('content-planner/content-callender', $data);
     }
 
     public function index()
