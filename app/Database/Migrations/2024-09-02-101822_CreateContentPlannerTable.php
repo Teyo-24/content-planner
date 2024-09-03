@@ -19,6 +19,10 @@ class CreateContentPlannerTable extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
             ],
+            'sosial_media' => [
+                'type'       => 'VARCHAR',
+                'constraint' => 255,
+            ],
             'content_type' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,

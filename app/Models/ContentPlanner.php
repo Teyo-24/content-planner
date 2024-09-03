@@ -12,7 +12,7 @@ class ContentPlanner extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['file_content', 'content_type', 'content_pillar', 'status', 'caption', 'cta_link', 'hashtag', 'created_at'];
+    protected $allowedFields    = ['file_content', 'sosial_media', 'content_type', 'content_pillar', 'status', 'caption', 'cta_link', 'hashtag', 'created_at'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;
@@ -35,7 +35,7 @@ class ContentPlanner extends Model
 
     // Callbacks
     protected $allowCallbacks = true;
-    protected $beforeInsert   = ['addCreatedAt'];
+    protected $beforeInsert   = [];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
@@ -43,10 +43,4 @@ class ContentPlanner extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    protected function addCreatedAt(array $data)
-    {
-        $data['data']['created_at'] = date('Y-m-d H:i:s');
-        return $data;
-    }
 }

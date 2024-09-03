@@ -20,6 +20,16 @@
             <input type="file" name="file_content" id="file_content" required>
         </div>
 
+        <!-- Sosial Media -->
+        <div>
+            <label for="sosial_media">Sosial Media:</label>
+            <select name="sosial_media" id="sosial_media" required>
+                <?php foreach ($sosmeds as $sosmed) : ?>
+                    <option value="<?= $sosmed['nama_sosial_media'] ?>"><?= $sosmed['nama_sosial_media'] ?></option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
         <!-- Content Type -->
         <div>
             <label for="content_type">Content Type:</label>
@@ -66,6 +76,12 @@
         <div>
             <label for="hashtag">Hashtag:</label>
             <input type="text" name="hashtag" id="hashtag" required>
+        </div>
+
+        <!-- Tanggal -->
+        <div>
+            <label for="created_at">Tanggal:</label>
+            <input type="date" name="created_at" id="created_at" required>
         </div>
 
         <!-- Submit Button -->
