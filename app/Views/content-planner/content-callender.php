@@ -132,7 +132,8 @@
                     <button class="btn btn-light mb-2 mb-md-0" id="nextMonth">
                         <i class="bi bi-chevron-right"></i>
                     </button>
-                    <input type="datetime-local" class="ms-3 mb-2 mb-md-0">
+                    <input type="month" id="monthPicker" class="ms-3 mb-2 mb-md-0">
+                    <button type="button" class="btn btn-primary ms-3 mt-2 mt-md-0">Cari</button>
                     <a href="/content-planner">
                         <button type="button" class="btn btn-success ms-3 mt-2 mt-md-0">Add Data +</button>
                     </a>
@@ -191,6 +192,26 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
 
     <script>
+        document.querySelector('.btn.btn-primary').addEventListener('click', function() {
+            // Mendapatkan nilai dari input type="month"
+            var monthPickerValue = document.getElementById('monthPicker').value;
+
+            if (monthPickerValue) {
+                // Pisahkan nilai menjadi tahun dan bulan
+                var [year, month] = monthPickerValue.split('-');
+
+                // Buat tanggal baru berdasarkan tahun dan bulan yang dipilih
+                var selectedDate = new Date(year, month - 1); // Bulan dalam JavaScript berbasis 0
+
+                // Perbarui currentDate dengan tanggal yang dipilih
+                currentDate = selectedDate;
+
+                // Perbarui tampilan dengan tanggal yang dipilih
+                updateDateDisplay(currentDate);
+                updateCalendar(currentDate);
+            }
+        });
+
         // Mendapatkan data dari PHP (eventsByDate dan socialMediaColors) sebagai objek JavaScript
         var eventsByDate = <?= json_encode($eventsByDate) ?>;
         var socialMediaColors = <?= json_encode($socialMediaColors) ?>;
@@ -355,8 +376,8 @@
         }
 
         function fillEventModal(dateStr, event) {
-            // Ubah format dateStr menjadi [Nama Hari], [Angka Tanggal] [Nama Bulan] [Angka Tahun]
-            var date = new Date(dateStr);
+            // Ubah format created_at menjadi [Nama Hari], [Angka Tanggal] [Nama Bulan] [Angka Tahun]
+            var date = new Date(event.created_at); // Menggunakan created_at dari event
             var options = {
                 weekday: 'long',
                 year: 'numeric',
@@ -366,12 +387,16 @@
             var formattedDateStr = date.toLocaleDateString('id-ID', options);
 
             // Mengisi elemen modal dengan data
-            document.querySelector('#eventModal .modal-body p').textContent = 'Detail Content Plan pada ' + formattedDateStr + ':';
+            document.querySelector('#eventModal .modal-body p').textContent = 'Content Plan pada ' + formattedDateStr + ':';
             document.querySelector('#eventModal .modal-body ul').innerHTML = `
-        <li>Sosial Media: ${event.sosial_media}</li>
-        <li>Content Pillar: ${event.content_pillar}</li>
-        <!-- Tambahkan data lainnya sesuai kebutuhan -->
-    `;
+                <li>Sosial Media: ${event.sosial_media}</li>
+                <li>Content Type: ${event.content_type}</li>
+                <li>Content Pillar: ${event.content_pillar}</li>
+                <li>Status: ${event.status}</li>
+                <li>Caption: ${event.caption}</li>
+                <li>CTA/Link: ${event.cta_link}</li>
+                <li>Hashtag: ${event.hashtag}</li>
+            `;
             // Misalnya, jika Anda memiliki gambar terkait event
             document.querySelector('#eventModal .modal-body img').src = event.image_url || 'https://via.placeholder.com/150';
         }
