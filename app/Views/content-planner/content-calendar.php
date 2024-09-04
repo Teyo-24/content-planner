@@ -497,7 +497,7 @@
             var formattedDateStr = date.toLocaleDateString('id-ID', options);
 
             // Mengisi elemen modal dengan data
-            document.querySelector('#eventModal .modal-body p').textContent = 'Content Plan pada ' + formattedDateStr + ':';
+            document.querySelector('#eventModal .modal-body p').textContent = 'Content Plan untuk ' + formattedDateStr + ':';
             document.querySelector('#eventModal .modal-body ul').innerHTML = `
                 <li>Sosial Media: ${event.sosial_media}</li>
                 <li>Content Type: ${event.content_type}</li>

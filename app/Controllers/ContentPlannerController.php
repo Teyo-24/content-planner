@@ -61,7 +61,7 @@ class ContentPlannerController extends BaseController
         $data['eventsByDate'] = $eventsByDate;
         $data['socialMediaColors'] = $socialMediaColors;
 
-        return view('content-planner/content-callender', $data);
+        return view('content-planner/content-calendar', $data);
     }
 
     public function index()
