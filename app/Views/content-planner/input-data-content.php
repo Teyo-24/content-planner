@@ -17,7 +17,7 @@
         }
 
         .card {
-            background-color: #ffff;
+            background-color: #e9ecef;
             padding: 20px;
             border-radius: 30px;
             margin-bottom: 20px;
@@ -25,7 +25,7 @@
 
         .card-content {
             padding: 15px;
-            background-color: #87D5C8;
+            background-color: #ffff;
         }
 
         .header {
@@ -39,7 +39,8 @@
             height: 2px;
             background-color: #000;
             border: none;
-            margin-top: 20px;
+            margin-top: 5px;
+            margin-bottom: 40px;
         }
 
         .textcontent {
@@ -64,8 +65,14 @@
 <body class="card-content">
 
     <div class="container">
-        <div class="header">
+        <div class="header" style="display: flex; align-items: center; justify-content: space-between;">
             <h2>Input Data Content</h2>
+            <div style="display: flex; gap: 10px;">
+                <button type="button" class="btn btn-primary">Content Calender</button>
+                <button type="button" class="btn btn-success">Add Content</button>
+            </div>
+        </div>
+        <div>
             <hr class="line-separator">
         </div>
 
@@ -78,7 +85,7 @@
             </div>
             <!-- end nama data -->
 
-            <table class="table table-striped">
+            <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -123,7 +130,7 @@
             </div>
             <!-- end nama data -->
 
-            <table class="table table-striped">
+            <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -157,7 +164,7 @@
                 <hr class="line-separatorkecil">
             </div>
             <!-- end nama data -->
-            <table class="table table-striped">
+            <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -191,7 +198,7 @@
                 <hr class="line-separatorkecil">
             </div>
             <!-- end nama data -->
-            <table class="table table-striped">
+            <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
                 <thead>
                     <tr>
                         <th>No</th>
