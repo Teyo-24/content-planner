@@ -36,8 +36,14 @@ class ContentPlannerController extends BaseController
                 $eventsByDate[$date] = [];
             }
             $eventsByDate[$date][] = [
+                'sosial_media' => $event['sosial_media'],
+                'content_type' => $event['content_type'],
                 'content_pillar' => $event['content_pillar'],
-                'sosial_media' => $event['sosial_media']
+                'status' => $event['status'],
+                'caption' => $event['caption'],
+                'cta_link' => $event['cta_link'],
+                'hashtag' => $event['hashtag'],
+                'created_at' => $event['created_at']
             ];
         }
 
