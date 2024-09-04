@@ -1,0 +1,165 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; /* Space between left and right panels */
+  max-width: 1200px; /* Optional max width for better layout control */
+  width: 100%;
+}
+
+.left-panel,
+.right-panel {
+  padding: 10px;
+  flex: 1;
+}
+
+.left-panel {
+  flex: 2;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.right-panel {
+  flex: 1;
+  background-color: #5865f2;
+  color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.right-panel h4 {
+  margin-bottom: 20px;
+}
+
+.right-panel p.paragraf {
+  margin: 0;
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.right-panel ul {
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  margin: 0;
+}
+
+.right-panel li {
+  display: flex; /* Align items horizontally */
+  align-items: center; /* Center items vertically */
+  margin-bottom: 10px; /* Space between list items */
+}
+
+.right-panel li i {
+  font-size: 20px; /* Adjust icon size */
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.right-panel li p.paragraf {
+  margin: 0; /* Remove default paragraph margin */
+  font-size: 14px; /* Adjust font size if needed */
+}
+
+h1 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.generate-button {
+  background-color: #5865f2;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+}
+
+.card {
+  margin-top: 20px;
+  border-radius: 8px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.card-body {
+  padding: 20px;
+  min-height: 200px;
+}
+
+.hashtag-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Creates columns that fit within the container */
+  gap: 10px; /* Space between checkboxes and labels */
+}
+
+.hashtag-item {
+  display: flex; /* Align checkbox and label horizontally */
+  align-items: center; /* Center checkbox and label vertically */
+}
+
+.hashtag-item input[type="checkbox"] {
+  margin-right: 10px; /* Space between checkbox and label text */
+  cursor: pointer;
+}
+
+.hashtag-item label {
+  margin: 0; /* Remove default margin */
+  font-size: 14px;
+}
+
+#copy-btn {
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.paragraf {
+  font-family: "Pixelify Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    flex: none;
+    width: 100%;
+  }
+}
