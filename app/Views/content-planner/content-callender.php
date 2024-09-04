@@ -133,7 +133,9 @@
                         <i class="bi bi-chevron-right"></i>
                     </button>
                     <input type="datetime-local" class="ms-3 mb-2 mb-md-0">
-                    <button type="button" class="btn btn-success ms-3 mt-2 mt-md-0">Add Data +</button>
+                    <a href="/content-planner">
+                        <button type="button" class="btn btn-success ms-3 mt-2 mt-md-0">Add Data +</button>
+                    </a>
                 </div>
             </div>
 
@@ -158,16 +160,19 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">Detail Kegiatan</h5>
+                    <h5 class="modal-title" id="eventModalLabel">Detail Content Plan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Detail kegiatan pada tanggal 1 September 2024:</p>
+                    <p>Detail kegiatan pada tanggal [Tanggal]:</p>
                     <ul>
-                        <li>Kegiatan: Pengambilan Foto</li>
-                        <li>Waktu: 10:00 AM - 12:00 PM</li>
-                        <li>Tempat: Studio Fotografi</li>
-                        <li>Catatan: Siapkan peralatan fotografi.</li>
+                        <li>Sosial Media: [Data]</li>
+                        <li>Content Type: [Data]</li>
+                        <li>Content Pillar: [Data]</li>
+                        <li>Status: [Data]</li>
+                        <li>Caption: [Data]</li>
+                        <li>CTA/Link: [Data]</li>
+                        <li>Hashtag: [Data]</li>
                     </ul>
                     <div class="text-center">
                         <img src="https://via.placeholder.com/150" alt="Foto Kegiatan" class="img-fluid">
@@ -180,6 +185,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
@@ -228,12 +234,73 @@
             var month = date.getMonth();
             var daysInMonth = new Date(year, month + 1, 0).getDate();
 
+            // Mendapatkan hari pertama dalam bulan ini (0 = Minggu, 1 = Senin, ..., 6 = Sabtu)
+            var firstDay = new Date(year, month, 1).getDay();
+
             // Mengisi tanggal-tanggal sesuai dengan minggunya
             var currentDay = 1;
-            while (currentDay <= daysInMonth) {
-                var tr = document.createElement('tr'); // Buat baris baru untuk setiap minggu
+            var tr = document.createElement('tr'); // Buat baris baru untuk minggu pertama
 
-                for (var i = 0; i < 7; i++) { // Mengisi baris dengan 7 kolom (untuk 7 hari)
+            // Isi baris pertama dengan tanggal yang tepat
+            for (var i = 0; i < 7; i++) {
+                var td = document.createElement('td');
+
+                if (i >= firstDay && currentDay <= daysInMonth) {
+                    var span = document.createElement('span');
+                    span.textContent = currentDay;
+                    span.style.display = 'inline-block';
+                    span.style.padding = '5px';
+                    span.style.width = '33px';
+                    span.style.height = '33px';
+                    span.style.lineHeight = '20px';
+                    span.style.textAlign = 'center';
+                    span.style.borderRadius = '50%';
+
+                    // Tanggal dalam format YYYY-MM-DD
+                    var currentDateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(currentDay).padStart(2, '0');
+
+                    // Cek apakah ada event pada tanggal ini
+                    if (eventsByDate[currentDateStr]) {
+                        eventsByDate[currentDateStr].forEach(function(event) {
+                            var eventDiv = document.createElement('div');
+                            eventDiv.className = 'event-rect';
+                            eventDiv.setAttribute('data-bs-toggle', 'modal');
+                            eventDiv.setAttribute('data-bs-target', '#eventModal');
+                            eventDiv.textContent = event.content_pillar;
+
+                            // Set background color berdasarkan sosial media
+                            var color = socialMediaColors[event.sosial_media];
+                            if (color) {
+                                eventDiv.style.backgroundColor = color;
+                            }
+
+                            // Menambahkan event listener untuk mengisi data modal ketika diklik
+                            eventDiv.addEventListener('click', function() {
+                                fillEventModal(currentDateStr, event);
+                            });
+
+                            td.appendChild(eventDiv);
+                        });
+                    }
+
+                    // Cek apakah tanggal ini adalah hari ini
+                    if (year === today.getFullYear() && month === today.getMonth() && currentDay === today.getDate()) {
+                        span.style.backgroundColor = '#87D5C8';
+                    }
+
+                    td.appendChild(span);
+                    currentDay++;
+                }
+
+                tr.appendChild(td);
+            }
+
+            datesBody.appendChild(tr);
+
+            // Isi baris berikutnya hingga semua tanggal habis
+            while (currentDay <= daysInMonth) {
+                tr = document.createElement('tr');
+                for (var i = 0; i < 7; i++) {
                     var td = document.createElement('td');
                     if (currentDay <= daysInMonth) {
                         var span = document.createElement('span');
@@ -264,6 +331,11 @@
                                     eventDiv.style.backgroundColor = color;
                                 }
 
+                                // Menambahkan event listener untuk mengisi data modal ketika diklik
+                                eventDiv.addEventListener('click', function() {
+                                    fillEventModal(currentDateStr, event);
+                                });
+
                                 td.appendChild(eventDiv);
                             });
                         }
@@ -275,14 +347,33 @@
 
                         td.appendChild(span);
                         currentDay++;
-                    } else {
-                        td.textContent = ''; // Kosongkan jika tidak ada tanggal yang sesuai
                     }
                     tr.appendChild(td);
                 }
-
-                datesBody.appendChild(tr); // Tambahkan baris ke tubuh tabel
+                datesBody.appendChild(tr);
             }
+        }
+
+        function fillEventModal(dateStr, event) {
+            // Ubah format dateStr menjadi [Nama Hari], [Angka Tanggal] [Nama Bulan] [Angka Tahun]
+            var date = new Date(dateStr);
+            var options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            var formattedDateStr = date.toLocaleDateString('id-ID', options);
+
+            // Mengisi elemen modal dengan data
+            document.querySelector('#eventModal .modal-body p').textContent = 'Detail Content Plan pada ' + formattedDateStr + ':';
+            document.querySelector('#eventModal .modal-body ul').innerHTML = `
+        <li>Sosial Media: ${event.sosial_media}</li>
+        <li>Content Pillar: ${event.content_pillar}</li>
+        <!-- Tambahkan data lainnya sesuai kebutuhan -->
+    `;
+            // Misalnya, jika Anda memiliki gambar terkait event
+            document.querySelector('#eventModal .modal-body img').src = event.image_url || 'https://via.placeholder.com/150';
         }
 
         // Menampilkan bulan dan kalender saat ini pada tampilan pertama

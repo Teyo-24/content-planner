@@ -95,7 +95,7 @@ class ContentPlannerController extends BaseController
         $model = new ContentPlanner();
         $model->insert($data);
 
-        return redirect()->to('/content-planner');
+        return redirect()->to('/');
     }
 
     public function all_input()
