@@ -70,7 +70,7 @@ class ContentPlannerController extends BaseController
         $data['c_types'] = $content_type;
         $data['statuses'] = $status;
 
-        return view('content-planner/content-planner', $data);
+        return view('content-planner/content-planners', $data);
     }
 
     public function add()
