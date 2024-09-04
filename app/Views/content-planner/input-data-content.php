@@ -59,22 +59,33 @@
         .input-smaller {
             width: 65%;
         }
+
+        .button-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .button-container .btn {
+            flex-shrink: 0;
+            /* Mencegah tombol mengecil */
+            white-space: nowrap;
+            /* Mencegah teks membungkus ke baris berikutnya */
+        }
     </style>
 </head>
 
 <body class="card-content">
-
     <div class="container">
-        <div class="header" style="display: flex; align-items: center; justify-content: space-between;">
-            <h2>Input Data Content</h2>
-            <div style="display: flex; gap: 10px;">
-                <button type="button" class="btn btn-primary">Content Calender</button>
-                <button type="button" class="btn btn-success">Add Content</button>
+        <div class="header">
+            <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
+                <h2 class="mb-3 mb-md-0">Input Data Content</h2>
+                <div class="button-container">
+                    <button type="button" class="btn btn-primary">Content Calendar</button>
+                    <button type="button" class="btn btn-success">Add Content</button>
+                </div>
             </div>
         </div>
-        <div>
-            <hr class="line-separator">
-        </div>
+        <hr class="line-separator">
 
         <div class="card">
             <!-- Tabel Sosial Media -->
@@ -84,43 +95,45 @@
                 <hr class="line-separatorkecil">
             </div>
             <!-- end nama data -->
-
-            <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Sosial Media</th>
-                        <th>Warna Sosial Media</th>
-                        <th style="text-align: center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1 ?>
-                    <?php foreach ($sosmeds as $item): ?>
+            <div class="table-responsive">
+                <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
+                    <thead>
                         <tr>
-                            <td><?= $i++ ?></td>
-                            <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="nama_sosial_media"><?= esc($item['nama_sosial_media']) ?></td>
-                            <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="warna_sosial_media">
-                                <div style="display: flex; align-items: center;">
-                                    <div style="width: 20px; height: 20px; background-color: <?= esc($item['warna_sosial_media']) ?>; border: 1px solid #000; margin-right: 5px;"></div>
-                                    <span><?= esc($item['warna_sosial_media']) ?></span>
-                                </div>
-                            </td>
+                            <th>No</th>
+                            <th>Nama Sosial Media</th>
+                            <th>Warna Sosial Media</th>
+                            <th style="text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1 ?>
+                        <?php foreach ($sosmeds as $item): ?>
+                            <tr>
+                                <td><?= $i++ ?></td>
+                                <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="nama_sosial_media"><?= esc($item['nama_sosial_media']) ?></td>
+                                <td contenteditable="true" data-id="<?= $item['id_sosial_media'] ?>" data-column="warna_sosial_media">
+                                    <div style="display: flex; align-items: center;">
+                                        <div style="width: 20px; height: 20px; background-color: <?= esc($item['warna_sosial_media']) ?>; border: 1px solid #000; margin-right: 5px;"></div>
+                                        <span><?= esc($item['warna_sosial_media']) ?></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-danger btn-sm delete-sosial-media" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_sosial_media'] ?>">Delete</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <th class="py-3">New Data</th>
+                            <td><input type="text" id="newNamaSosialMedia" class="form-control" placeholder="Nama Sosial Media"></td>
+                            <td><input type="color" id="newWarnaSosialMedia" class="form-control" value="#000000"></td>
                             <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-sosial-media" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_sosial_media'] ?>">Delete</button>
+                                <button class="btn btn-primary btn-sm" id="addSosialMedia" style="width: 100%; min-width: 80px;">Add Data</button>
                             </td>
                         </tr>
-                    <?php endforeach; ?>
-                    <tr>
-                        <th class="py-3">New Data</th>
-                        <td><input type="text" id="newNamaSosialMedia" class="form-control" placeholder="Nama Sosial Media"></td>
-                        <td><input type="color" id="newWarnaSosialMedia" class="form-control" value="#000000"></td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm" id="addSosialMedia" style="width: 100%; min-width: 80px;">Add Data</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+
 
             <!-- Tabel Content Type -->
             <!-- start nama data -->
@@ -130,32 +143,35 @@
             </div>
             <!-- end nama data -->
 
-            <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Content Type</th>
-                        <th style="text-align: center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1 ?>
-                    <?php foreach ($c_types as $item): ?>
+            <div class="table-responsive">
+                <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
+                    <thead>
                         <tr>
-                            <td><?= $i++ ?></td>
-                            <td contenteditable="true" data-id="<?= $item['id_content_type'] ?>" data-column="nama_content_type"><?= esc($item['nama_content_type']) ?></td>
-                            <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_content_type'] ?>">Delete</button>
-                            </td>
+                            <th>No</th>
+                            <th>Nama Content Type</th>
+                            <th style="text-align: center;">Aksi</th>
                         </tr>
-                    <?php endforeach; ?>
-                    <tr>
-                        <th class="py-3">New Data</th>
-                        <td><input type="text" id="newNamaContentType" class="form-control" placeholder="Nama Content Type"></td>
-                        <td><button class="btn btn-primary btn-sm" id="addContentType" style="width: 100%; min-width: 80px;">Add Data</button></td>
-                    </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1 ?>
+                        <?php foreach ($c_types as $item): ?>
+                            <tr>
+                                <td><?= $i++ ?></td>
+                                <td contenteditable="true" data-id="<?= $item['id_content_type'] ?>" data-column="nama_content_type"><?= esc($item['nama_content_type']) ?></td>
+                                <td class="text-center">
+                                    <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_content_type'] ?>">Delete</button>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <th class="py-3">New Data</th>
+                            <td><input type="text" id="newNamaContentType" class="form-control" placeholder="Nama Content Type"></td>
+                            <td><button class="btn btn-primary btn-sm" id="addContentType" style="width: 100%; min-width: 80px;">Add Data</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
             <!-- Tabel Content Pillar -->
             <!-- start nama data -->
@@ -164,32 +180,36 @@
                 <hr class="line-separatorkecil">
             </div>
             <!-- end nama data -->
-            <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Content Pillar</th>
-                        <th style="text-align: center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1 ?>
-                    <?php foreach ($c_pillars as $item): ?>
+
+            <div class="table-responsive">
+                <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
+                    <thead>
                         <tr>
-                            <td><?= $i++ ?></td>
-                            <td contenteditable="true" data-id="<?= $item['id_content_pillar'] ?>" data-column="nama_content_pillar"><?= esc($item['nama_content_pillar']) ?></td>
-                            <td><button class="btn btn-danger btn-sm delete-content-pillar" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_content_pillar'] ?>">Delete</button></td>
+                            <th>No</th>
+                            <th>Nama Content Pillar</th>
+                            <th style="text-align: center;">Aksi</th>
                         </tr>
-                    <?php endforeach; ?>
-                    <tr>
-                        <th class="py-3">New Data</th>
-                        <td><input type="text" id="newNamaContentPillar" class="form-control" placeholder="Nama Content Pillar"></td>
-                        <td class="text-center">
-                            <button class="btn btn-primary btn-sm" id="addContentPillar" style="width: 100%; min-width: 80px;">Add Data</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1 ?>
+                        <?php foreach ($c_pillars as $item): ?>
+                            <tr>
+                                <td><?= $i++ ?></td>
+                                <td contenteditable="true" data-id="<?= $item['id_content_pillar'] ?>" data-column="nama_content_pillar"><?= esc($item['nama_content_pillar']) ?></td>
+                                <td><button class="btn btn-danger btn-sm delete-content-pillar" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_content_pillar'] ?>">Delete</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <th class="py-3">New Data</th>
+                            <td><input type="text" id="newNamaContentPillar" class="form-control" placeholder="Nama Content Pillar"></td>
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm" id="addContentPillar" style="width: 100%; min-width: 80px;">Add Data</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
 
             <!-- Tabel Status -->
             <!-- start nama data -->
@@ -198,30 +218,34 @@
                 <hr class="line-separatorkecil">
             </div>
             <!-- end nama data -->
-            <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Status</th>
-                        <th style="text-align: center;">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1 ?>
-                    <?php foreach ($statuses as $item): ?>
+
+            <div class="table-responsive">
+                <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
+                    <thead>
                         <tr>
-                            <td><?= $i++ ?></td>
-                            <td contenteditable="true" data-id="<?= $item['id_status'] ?>" data-column="nama_status"><?= esc($item['nama_status']) ?></td>
-                            <td><button class="btn btn-danger btn-sm delete-status" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_status'] ?>">Delete</button></td>
+                            <th>No</th>
+                            <th>Nama Status</th>
+                            <th style="text-align: center;">Aksi</th>
                         </tr>
-                    <?php endforeach; ?>
-                    <tr>
-                        <th class="py-3">New Data</th>
-                        <td><input type="text" id="newNamaStatus" class="form-control" placeholder="Nama Status"></td>
-                        <td><button class="btn btn-primary btn-sm" id="addStatus" style="width: 100%; min-width: 80px;">Add Data</button></td>
-                    </tr>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1 ?>
+                        <?php foreach ($statuses as $item): ?>
+                            <tr>
+                                <td><?= $i++ ?></td>
+                                <td contenteditable="true" data-id="<?= $item['id_status'] ?>" data-column="nama_status"><?= esc($item['nama_status']) ?></td>
+                                <td><button class="btn btn-danger btn-sm delete-status" style="width: 100%; min-width: 80px;" data-id="<?= $item['id_status'] ?>">Delete</button></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        <tr>
+                            <th class="py-3">New Data</th>
+                            <td><input type="text" id="newNamaStatus" class="form-control" placeholder="Status"></td>
+                            <td><button class="btn btn-primary btn-sm" id="addStatus" style="width: 100%; min-width: 80px;">Add Data</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 
