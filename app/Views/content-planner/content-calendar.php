@@ -252,7 +252,7 @@
                     <input type="month" id="monthPicker" class="ms-3 mb-2 mb-md-0">
                     <button type="button" class="btn btn-primary ms-3 mt-2 mt-md-0">Cari</button>
                     <a href="/content-planner">
-                        <button type="button" class="btn btn-success ms-3 mt-2 mt-md-0">Add Data +</button>
+                        <button type="button" class="btn btn-success ms-3 mt-2 mt-md-0">Content Planner</button>
                     </a>
                 </div>
             </div>

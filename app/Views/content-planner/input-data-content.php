@@ -78,10 +78,10 @@
     <div class="container">
         <div class="header">
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
-                <h2 class="mb-3 mb-md-0">Input Data Content</h2>
+                <h2 class="mb-3 mb-md-0">Set Up</h2>
                 <div class="button-container">
-                    <button type="button" class="btn btn-primary">Content Calendar</button>
-                    <button type="button" class="btn btn-success">Add Content</button>
+                    <a href="/"><button type="button" class="btn btn-primary">Content Calendar</button></a>
+                    <a href="/content-planner"><button type="button" class="btn btn-success">Content Planner</button></a>
                 </div>
             </div>
         </div>
