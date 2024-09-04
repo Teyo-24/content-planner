@@ -58,8 +58,9 @@
 
     .image-area {
       border: 2px dashed;
-      padding: 1rem;
+      padding: 1.6rem;
       position: relative;
+      text-align: center;
     }
 
     .image-area::before {
@@ -100,28 +101,58 @@
       border-radius: 0.25rem;
       /* Bootstrap default border-radius */
     }
+
+    .button-container {
+      display: flex;
+      gap: 10px;
+    }
+
+    .button-container .btn {
+      flex-shrink: 0;
+      /* Mencegah tombol mengecil */
+      white-space: nowrap;
+      /* Mencegah teks membungkus ke baris berikutnya */
+    }
+
+    @media (max-width: 320px) {
+      .calendar-controls {
+        margin-left: 0;
+        margin-top: 10px;
+        width: 100%;
+        text-align: center;
+      }
+
+      .calendar-controls input[type="date"] {
+        width: 100%;
+      }
+
+      #dateDisplay {
+        text-align: center;
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
 <body class="card-content">
   <!-- start text header and line -->
   <div class="container">
-    <div class="header" style="display: flex; align-items: center; justify-content: space-between;">
-      <h2>Content Planner</h2>
-      <div style="display: flex; gap: 10px;">
-        <button type="button" class="btn btn-primary">Content Calender</button>
-        <button type="button" class="btn btn-success">Set Up</button>
+    <div class="header">
+      <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
+        <h2 class="mb-3 mb-md-0">Input Data Content</h2>
+        <div class="button-container">
+          <button type="button" class="btn btn-primary">Content Calendar</button>
+          <button type="button" class="btn btn-success">Set Up</button>
+        </div>
       </div>
     </div>
-    <div>
-      <hr class="line-separator">
-    </div>
+    <hr class="line-separator">
 
     <div class="card">
       <!-- Info Date -->
       <div class="mb-4 left-3">
         <div class="d-flex justify-content-between align-items-center">
-          <h5 id="dateDisplay" class="m-0">10 September 2024</h5>
+          <h5 id="dateDisplay" class="m-0"></h5>
           <!-- Icon Input Date -->
           <div class="calendar-controls d-flex align-items-center">
             <input id="dateInput" type="date" class="ms-3">
@@ -214,7 +245,7 @@
             <!-- CTA Link -->
             <div class="form-group">
               <label for="CTA">CTA / Link</label>
-              <textarea type="text" class="form-control" placeholder="Cta / Link" name="cta_link"></textarea>
+              <textarea type="text" class="form-control" placeholder="CTA / Link" name="cta_link"></textarea>
             </div>
 
             <!-- Hashtag -->
@@ -263,23 +294,35 @@
     var infoArea = document.getElementById('upload-label');
 
     input.addEventListener('change', showFileName);
+
     function showFileName(event) {
       var input = event.srcElement;
       var fileName = input.files[0].name;
       infoArea.textContent = 'File name: ' + fileName;
     }
-  </script>
 
-  <!-- Set Date -->
-  <script>
     document.addEventListener('DOMContentLoaded', function () {
       var dateInput = document.getElementById('dateInput');
       var dateDisplay = document.getElementById('dateDisplay');
 
+      // Ambil tanggal saat ini
+      var today = new Date();
+      var options = {
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      };
+      var formattedDate = today.toLocaleDateString('id-ID', options); // Format tanggal sesuai lokal ID
+
+      // Tampilkan tanggal saat ini
+      dateDisplay.textContent = formattedDate;
+
+      // Set nilai input date ke tanggal saat ini
+      dateInput.valueAsDate = today;
+
       dateInput.addEventListener('change', function () {
         var selectedDate = new Date(dateInput.value);
-        var options = { day: '2-digit', month: 'long', year: 'numeric' };
-        var formattedDate = selectedDate.toLocaleDateString('id-ID', options); // Format tanggal sesuai lokal ID
+        var formattedDate = selectedDate.toLocaleDateString('id-ID', options);
 
         dateDisplay.textContent = formattedDate;
       });
