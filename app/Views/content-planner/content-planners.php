@@ -14,12 +14,8 @@
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
-    body {
-      background-color: #e0e0e0;
-    }
-
     .card {
-      background-color: #ffff;
+      background-color: #e9ecef;
       padding: 20px;
       border-radius: 30px;
       margin-bottom: 20px;
@@ -27,7 +23,7 @@
 
     .card-content {
       padding: 15px;
-      background-color: #87d5c8;
+      background-color: #ffff;
     }
 
     .container {
@@ -45,7 +41,8 @@
       height: 2px;
       background-color: #000;
       border: none;
-      margin-top: 20px;
+      margin-top: 5px;
+      margin-bottom: 40px;
     }
 
     #upload {
@@ -60,14 +57,13 @@
     }
 
     .image-area {
-      border: 2px dashed #87D5C8;
+      border: 2px dashed;
       padding: 1rem;
       position: relative;
     }
 
     .image-area::before {
       content: 'Uploaded image result';
-      color: #87D5C8;
       font-weight: bold;
       text-transform: uppercase;
       position: absolute;
@@ -81,7 +77,6 @@
     .image-area img {
       z-index: 2;
       position: relative;
-      color: #87D5C8;
     }
 
 
@@ -111,11 +106,16 @@
 <body class="card-content">
   <!-- start text header and line -->
   <div class="container">
-    <div class="header">
+    <div class="header" style="display: flex; align-items: center; justify-content: space-between;">
       <h2>Content Planner</h2>
-      <hr class="line-separator" />
+      <div style="display: flex; gap: 10px;">
+        <button type="button" class="btn btn-primary">Content Calender</button>
+        <button type="button" class="btn btn-success">Set Up</button>
+      </div>
     </div>
-    <!-- end text header and line -->
+    <div>
+      <hr class="line-separator">
+    </div>
 
     <div class="card">
       <!-- Info Date -->
@@ -147,8 +147,9 @@
             </div>
 
             <!-- Uploaded image area-->
-            <p class="text-center mt-4">The image uploaded will be rendered inside the box below.</p>
-            <div class="image-area mt-4"><img id="imageResult" src="#" alt=""
+            <p class="text-center font-weight-light mt-4 text-muted">The image uploaded will be rendered inside the box
+              below.</p>
+            <div class="image-area mt-4 text-muted"><img id="imageResult" src="#" alt=""
                 class="img-fluid rounded shadow-sm mx-auto d-block"></div>
 
           </div>
@@ -224,8 +225,8 @@
 
             <!-- Button Add Content -->
             <div class="d-flex justify-content-center mt-4">
-              <button type="submit" class="btn btn-success" style="background-color: #87D5C8; border-color: #87D5C8;">
-                Add Content
+              <button type="submit" class="btn btn-primary">
+                Subumit
               </button>
             </div>
 
