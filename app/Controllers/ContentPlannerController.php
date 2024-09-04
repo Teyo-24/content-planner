@@ -12,6 +12,16 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 class ContentPlannerController extends BaseController
 {
+    public function serve($filename)
+    {
+        $filePath = WRITEPATH . 'uploads/' . $filename;
+
+        if (file_exists($filePath)) {
+            return $this->response->download($filePath, null)->setFileName($filename);
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+    }
 
     public function calender()
     {
@@ -36,6 +46,7 @@ class ContentPlannerController extends BaseController
                 $eventsByDate[$date] = [];
             }
             $eventsByDate[$date][] = [
+                'file_content' => $event['file_content'],
                 'sosial_media' => $event['sosial_media'],
                 'content_type' => $event['content_type'],
                 'content_pillar' => $event['content_pillar'],
@@ -43,7 +54,7 @@ class ContentPlannerController extends BaseController
                 'caption' => $event['caption'],
                 'cta_link' => $event['cta_link'],
                 'hashtag' => $event['hashtag'],
-                'created_at' => $event['created_at']
+                'created_at' => $event['created_at'],
             ];
         }
 

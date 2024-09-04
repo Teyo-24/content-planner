@@ -8,6 +8,9 @@ use CodeIgniter\Router\RouteCollection;
 // $routes->get('/', 'Home::index');
 $routes->get('/landing', 'Home::page');
 
+// file
+$routes->get('serve-file/(:any)', 'ContentPlannerController::serve/$1');
+
 // Hashtag Generator 
 $routes->get('/hashtag', 'HashtaggeneratorController::index');
 $routes->get('/generate-hashtags', 'HashtaggeneratorController::generate');
