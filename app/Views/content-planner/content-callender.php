@@ -124,16 +124,19 @@
         <hr>
         <div class="calendar-container mt-4">
             <div class="d-flex justify-content-between align-items-center flex-wrap">
-                <h5 class="m-0">September 2024</h5>
+                <h5 class="m-0" id="dataDisplay"></h5>
                 <div class="calendar-controls d-flex align-items-center flex-wrap">
-                    <button class="btn btn-light me-3 mb-2 mb-md-0">
+                    <button class="btn btn-light me-3 mb-2 mb-md-0" id="prevMonth">
                         <i class="bi bi-chevron-left"></i>
                     </button>
-                    <button class="btn btn-light mb-2 mb-md-0">
+                    <button class="btn btn-light mb-2 mb-md-0" id="nextMonth">
                         <i class="bi bi-chevron-right"></i>
                     </button>
-                    <input type="datetime-local" class="ms-3 mb-2 mb-md-0">
-                    <button type="button" class="btn btn-success ms-3 mt-2 mt-md-0">Add Data +</button>
+                    <input type="month" id="monthPicker" class="ms-3 mb-2 mb-md-0">
+                    <button type="button" class="btn btn-primary ms-3 mt-2 mt-md-0">Cari</button>
+                    <a href="/content-planner">
+                        <button type="button" class="btn btn-success ms-3 mt-2 mt-md-0">Add Data +</button>
+                    </a>
                 </div>
             </div>
 
@@ -141,67 +144,12 @@
             <div class="table-responsive">
                 <table class="table table-bordered text-center mt-4">
                     <thead>
-                        <tr>
-                            <th>Sunday</th>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saturday</th>
+                        <tr id="daysRow">
+                            <!-- Hari (Minggu-Sabtu) -->
                         </tr>
                     </thead>
-                    <tbody class="text-end">
-                        <tr>
-                            <td>
-                                1
-                                <div class="event-rect" data-bs-toggle="modal" data-bs-target="#eventModal">Foto</div>
-                            </td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>9</td>
-                            <td>10</td>
-                            <td>11</td>
-                            <td>12
-                                <div class="event-rect" data-bs-toggle="modal" data-bs-target="#eventModal">Video</div>
-                            </td>
-                            <td>13</td>
-                            <td>14</td>
-                        </tr>
-                        <tr>
-                            <td>15</td>
-                            <td>16</td>
-                            <td>17</td>
-                            <td>18</td>
-                            <td>19</td>
-                            <td>20</td>
-                            <td>21</td>
-                        </tr>
-                        <tr>
-                            <td>22</td>
-                            <td>23</td>
-                            <td>24</td>
-                            <td>25</td>
-                            <td>26</td>
-                            <td>27</td>
-                            <td>28</td>
-                        </tr>
-                        <tr>
-                            <td>29</td>
-                            <td>30</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                        </tr>
+                    <tbody class="text-end" id="datesBody">
+                        <!-- Tanggal (Sesuai Bulan) -->
                     </tbody>
                 </table>
             </div>
@@ -213,16 +161,19 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">Detail Kegiatan</h5>
+                    <h5 class="modal-title" id="eventModalLabel">Detail Content Plan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Detail kegiatan pada tanggal 1 September 2024:</p>
+                    <p>Detail kegiatan pada tanggal [Tanggal]:</p>
                     <ul>
-                        <li>Kegiatan: Pengambilan Foto</li>
-                        <li>Waktu: 10:00 AM - 12:00 PM</li>
-                        <li>Tempat: Studio Fotografi</li>
-                        <li>Catatan: Siapkan peralatan fotografi.</li>
+                        <li>Sosial Media: [Data]</li>
+                        <li>Content Type: [Data]</li>
+                        <li>Content Pillar: [Data]</li>
+                        <li>Status: [Data]</li>
+                        <li>Caption: [Data]</li>
+                        <li>CTA/Link: [Data]</li>
+                        <li>Hashtag: [Data]</li>
                     </ul>
                     <div class="text-center">
                         <img src="https://via.placeholder.com/150" alt="Foto Kegiatan" class="img-fluid">
@@ -236,8 +187,238 @@
         </div>
     </div>
 
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+
+    <script>
+        document.querySelector('.btn.btn-primary').addEventListener('click', function() {
+            // Mendapatkan nilai dari input type="month"
+            var monthPickerValue = document.getElementById('monthPicker').value;
+
+            if (monthPickerValue) {
+                // Pisahkan nilai menjadi tahun dan bulan
+                var [year, month] = monthPickerValue.split('-');
+
+                // Buat tanggal baru berdasarkan tahun dan bulan yang dipilih
+                var selectedDate = new Date(year, month - 1); // Bulan dalam JavaScript berbasis 0
+
+                // Perbarui currentDate dengan tanggal yang dipilih
+                currentDate = selectedDate;
+
+                // Perbarui tampilan dengan tanggal yang dipilih
+                updateDateDisplay(currentDate);
+                updateCalendar(currentDate);
+            }
+        });
+
+        // Mendapatkan data dari PHP (eventsByDate dan socialMediaColors) sebagai objek JavaScript
+        var eventsByDate = <?= json_encode($eventsByDate) ?>;
+        var socialMediaColors = <?= json_encode($socialMediaColors) ?>;
+
+        // Mendapatkan elemen untuk baris hari, tubuh tabel, dan tampilan bulan
+        var daysRow = document.getElementById('daysRow');
+        var datesBody = document.getElementById('datesBody');
+
+        // Array nama hari dalam Bahasa Indonesia
+        var dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+
+        // Menampilkan hari dari Minggu hingga Sabtu di baris pertama
+        dayNames.forEach(function(day) {
+            var th = document.createElement('th');
+            th.textContent = day;
+            daysRow.appendChild(th);
+        });
+
+        // Mendapatkan bulan dan tahun saat ini
+        var currentDate = new Date();
+        var options = {
+            year: 'numeric',
+            month: 'long'
+        };
+
+        // Mendapatkan tanggal hari ini
+        var today = new Date();
+
+        // Fungsi untuk memperbarui tampilan bulan dan tahun
+        function updateDateDisplay(date) {
+            document.getElementById('dataDisplay').textContent = date.toLocaleDateString('id-ID', options);
+        }
+
+        // Fungsi untuk memperbarui tampilan tanggal sesuai bulan
+        function updateCalendar(date) {
+            // Kosongkan isi datesBody
+            datesBody.innerHTML = '';
+
+            // Mendapatkan jumlah hari dalam bulan yang sedang ditampilkan
+            var year = date.getFullYear();
+            var month = date.getMonth();
+            var daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Mendapatkan hari pertama dalam bulan ini (0 = Minggu, 1 = Senin, ..., 6 = Sabtu)
+            var firstDay = new Date(year, month, 1).getDay();
+
+            // Mengisi tanggal-tanggal sesuai dengan minggunya
+            var currentDay = 1;
+            var tr = document.createElement('tr'); // Buat baris baru untuk minggu pertama
+
+            // Isi baris pertama dengan tanggal yang tepat
+            for (var i = 0; i < 7; i++) {
+                var td = document.createElement('td');
+
+                if (i >= firstDay && currentDay <= daysInMonth) {
+                    var span = document.createElement('span');
+                    span.textContent = currentDay;
+                    span.style.display = 'inline-block';
+                    span.style.padding = '5px';
+                    span.style.width = '33px';
+                    span.style.height = '33px';
+                    span.style.lineHeight = '20px';
+                    span.style.textAlign = 'center';
+                    span.style.borderRadius = '50%';
+
+                    // Tanggal dalam format YYYY-MM-DD
+                    var currentDateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(currentDay).padStart(2, '0');
+
+                    // Cek apakah ada event pada tanggal ini
+                    if (eventsByDate[currentDateStr]) {
+                        eventsByDate[currentDateStr].forEach(function(event) {
+                            var eventDiv = document.createElement('div');
+                            eventDiv.className = 'event-rect';
+                            eventDiv.setAttribute('data-bs-toggle', 'modal');
+                            eventDiv.setAttribute('data-bs-target', '#eventModal');
+                            eventDiv.textContent = event.content_pillar;
+
+                            // Set background color berdasarkan sosial media
+                            var color = socialMediaColors[event.sosial_media];
+                            if (color) {
+                                eventDiv.style.backgroundColor = color;
+                            }
+
+                            // Menambahkan event listener untuk mengisi data modal ketika diklik
+                            eventDiv.addEventListener('click', function() {
+                                fillEventModal(currentDateStr, event);
+                            });
+
+                            td.appendChild(eventDiv);
+                        });
+                    }
+
+                    // Cek apakah tanggal ini adalah hari ini
+                    if (year === today.getFullYear() && month === today.getMonth() && currentDay === today.getDate()) {
+                        span.style.backgroundColor = '#87D5C8';
+                    }
+
+                    td.appendChild(span);
+                    currentDay++;
+                }
+
+                tr.appendChild(td);
+            }
+
+            datesBody.appendChild(tr);
+
+            // Isi baris berikutnya hingga semua tanggal habis
+            while (currentDay <= daysInMonth) {
+                tr = document.createElement('tr');
+                for (var i = 0; i < 7; i++) {
+                    var td = document.createElement('td');
+                    if (currentDay <= daysInMonth) {
+                        var span = document.createElement('span');
+                        span.textContent = currentDay;
+                        span.style.display = 'inline-block';
+                        span.style.padding = '5px';
+                        span.style.width = '33px';
+                        span.style.height = '33px';
+                        span.style.lineHeight = '20px';
+                        span.style.textAlign = 'center';
+                        span.style.borderRadius = '50%';
+
+                        // Tanggal dalam format YYYY-MM-DD
+                        var currentDateStr = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(currentDay).padStart(2, '0');
+
+                        // Cek apakah ada event pada tanggal ini
+                        if (eventsByDate[currentDateStr]) {
+                            eventsByDate[currentDateStr].forEach(function(event) {
+                                var eventDiv = document.createElement('div');
+                                eventDiv.className = 'event-rect';
+                                eventDiv.setAttribute('data-bs-toggle', 'modal');
+                                eventDiv.setAttribute('data-bs-target', '#eventModal');
+                                eventDiv.textContent = event.content_pillar;
+
+                                // Set background color berdasarkan sosial media
+                                var color = socialMediaColors[event.sosial_media];
+                                if (color) {
+                                    eventDiv.style.backgroundColor = color;
+                                }
+
+                                // Menambahkan event listener untuk mengisi data modal ketika diklik
+                                eventDiv.addEventListener('click', function() {
+                                    fillEventModal(currentDateStr, event);
+                                });
+
+                                td.appendChild(eventDiv);
+                            });
+                        }
+
+                        // Cek apakah tanggal ini adalah hari ini
+                        if (year === today.getFullYear() && month === today.getMonth() && currentDay === today.getDate()) {
+                            span.style.backgroundColor = '#87D5C8';
+                        }
+
+                        td.appendChild(span);
+                        currentDay++;
+                    }
+                    tr.appendChild(td);
+                }
+                datesBody.appendChild(tr);
+            }
+        }
+
+        function fillEventModal(dateStr, event) {
+            // Ubah format created_at menjadi [Nama Hari], [Angka Tanggal] [Nama Bulan] [Angka Tahun]
+            var date = new Date(event.created_at); // Menggunakan created_at dari event
+            var options = {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            };
+            var formattedDateStr = date.toLocaleDateString('id-ID', options);
+
+            // Mengisi elemen modal dengan data
+            document.querySelector('#eventModal .modal-body p').textContent = 'Content Plan pada ' + formattedDateStr + ':';
+            document.querySelector('#eventModal .modal-body ul').innerHTML = `
+                <li>Sosial Media: ${event.sosial_media}</li>
+                <li>Content Type: ${event.content_type}</li>
+                <li>Content Pillar: ${event.content_pillar}</li>
+                <li>Status: ${event.status}</li>
+                <li>Caption: ${event.caption}</li>
+                <li>CTA/Link: ${event.cta_link}</li>
+                <li>Hashtag: ${event.hashtag}</li>
+            `;
+            // Misalnya, jika Anda memiliki gambar terkait event
+            document.querySelector('#eventModal .modal-body img').src = event.image_url || 'https://via.placeholder.com/150';
+        }
+
+        // Menampilkan bulan dan kalender saat ini pada tampilan pertama
+        updateDateDisplay(currentDate);
+        updateCalendar(currentDate);
+
+        // Event listener untuk tombol "chevron-left"
+        document.getElementById('prevMonth').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            updateDateDisplay(currentDate);
+            updateCalendar(currentDate);
+        });
+
+        // Event listener untuk tombol "chevron-right"
+        document.getElementById('nextMonth').addEventListener('click', function() {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            updateDateDisplay(currentDate);
+            updateCalendar(currentDate);
+        });
+    </script>
 </body>
 
 </html>
