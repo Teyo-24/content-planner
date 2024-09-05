@@ -77,6 +77,18 @@
             <div class="d-flex justify-content-between align-items-center flex-wrap">
                 <h4>2024</h4>
                 <div class="calendar-controls d-flex align-items-center flex-wrap">
+                    <!-- start dropdown button -->
+                    <div class="btn-group me-3 mb-2 mb-md-0">
+                        <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Media Sosial
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">Tiktok</a></li>
+                            <li><a class="dropdown-item" href="#">Facebook</a></li>
+                            <li><a class="dropdown-item" href="#">Youtube</a></li>
+                        </ul>
+                    </div>
+                    <!-- end dropdown button -->
                     <button class="btn btn-light me-3 mb-2 mb-md-0" id="prevMonth">
                         <i class="bi bi-chevron-left"></i>
                     </button>
@@ -111,6 +123,7 @@
                             <td scope="col">Okt</td>
                             <td scope="col">Nov</td>
                             <td scope="col">Des</td>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -128,6 +141,9 @@
                             <td contenteditable="true">4000</td>
                             <td contenteditable="true">4500</td>
                             <td contenteditable="true">5000</td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                            </td>
                         </tr>
                         <tr>
                             <td class="fw-bold">Followers Real</td>
@@ -143,6 +159,9 @@
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                            </td>
                         </tr>
                         <tr>
                             <td class="fw-bold">Reach Goal</td>
@@ -158,6 +177,9 @@
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                            </td>
                         </tr>
                         <tr>
                             <td class="fw-bold">Reach Real</td>
@@ -173,6 +195,9 @@
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                            </td>
                         </tr>
                         <tr>
                             <td class="fw-bold">Like/Post Goal</td>
@@ -188,6 +213,9 @@
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                            </td>
                         </tr>
                         <tr>
                             <td class="fw-bold">Like/Post Real</td>
@@ -203,6 +231,9 @@
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                            </td>
                         </tr>
                         <tr>
                             <td class="fw-bold">Comment/Post Goal</td>
@@ -218,6 +249,9 @@
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                            </td>
                         </tr>
                         <tr>
                             <td class="fw-bold">Comment/Post Real</td>
@@ -233,167 +267,26 @@
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
                             <td contenteditable="true"></td>
+                            <td class="text-center">
+                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" id="new-trend" placeholder="Nama Content Type">
+                    <button class="btn btn-primary" type="button" id="add-data-btn">Add Data</button>
+                </div>
             </div>
 
-            <!-- start nama data -->
-            <div class="textcontent">
-                <h5>TikTok</h5>
-                <hr class="line-separatorkecil">
-            </div>
-            <!-- end nama data -->
-            <div class="table-responsive">
-                <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
-                    <thead class="table-dark">
-                        <tr style="text-align: center;">
-                            <th scope="col">Trend</th>
-                            <td scope="col">Jan</td>
-                            <td scope="col">Feb</td>
-                            <td scope="col">Mar</td>
-                            <td scope="col">Apr</td>
-                            <td scope="col">Mei</td>
-                            <td scope="col">Jun</td>
-                            <td scope="col">Jul</td>
-                            <td scope="col">Aug</td>
-                            <td scope="col">Sep</td>
-                            <td scope="col">Okt</td>
-                            <td scope="col">Nov</td>
-                            <td scope="col">Des</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="fw-bold">Followers Goal</td>
-                            <td contenteditable="true">250</td>
-                            <td contenteditable="true">500</td>
-                            <td contenteditable="true">750</td>
-                            <td contenteditable="true">1000</td>
-                            <td contenteditable="true">1500</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true">3500</td>
-                            <td contenteditable="true">4000</td>
-                            <td contenteditable="true">4500</td>
-                            <td contenteditable="true">5000</td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Followers Real</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Reach Goal</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Reach Real</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Like/Post Goal</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Like/Post Real</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Comment/Post Goal</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Comment/Post Real</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+
 
 
 
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 
 </html>
