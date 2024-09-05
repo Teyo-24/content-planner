@@ -163,10 +163,6 @@
         <div class="mb-4 left-3">
           <div class="d-flex justify-content-between align-items-center">
             <h5 id="dateDisplay" class="m-0"></h5>
-            <!-- Icon Input Date -->
-            <div class="calendar-controls d-flex align-items-center">
-              <input id="dateInput" type="date" name="created_at" class="ms-3">
-            </div>
           </div>
         </div>
 
@@ -178,7 +174,8 @@
             <!-- Upload image input-->
             <label for="">Upload Image</label>
             <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
-              <input name="file_content" id="upload" type="file" onchange="readURL(this);" class="form-control border-0">
+              <input name="file_content" id="upload" type="file" onchange="readURL(this);"
+                class="form-control border-0">
               <label id="upload-label" for="upload" class="font-weight-light text-muted">Choose file</label>
               <div class="input-group-append">
                 <label for="upload" class="btn btn-light m-0 rounded-pill px-4"> <i
@@ -264,6 +261,13 @@
               <textarea type="text" class="form-control" placeholder="Hashtag" name="hashtag"></textarea>
             </div>
 
+            <!-- Date -->
+            <div class="form-group">
+              <label for="post-date">Post Date</label>
+              <input type="date" class="form-control" name="created_at" id="dateInput" required>
+            </div>
+
+
             <!-- Button Add Content -->
             <div class="d-flex justify-content-center mt-4">
               <button type="submit" class="btn btn-primary">
@@ -287,15 +291,15 @@
     function readURL(input) {
       if (input.files && input.files[0]) {
         var reader = new FileReader();
-        reader.onload = function(e) {
+        reader.onload = function (e) {
           $('#imageResult').attr('src', e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
       }
     }
 
-    $(function() {
-      $('#upload').on('change', function() {
+    $(function () {
+      $('#upload').on('change', function () {
         readURL(this);
       });
     });
@@ -311,7 +315,7 @@
       infoArea.textContent = 'File name: ' + fileName;
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       var dateInput = document.getElementById('dateInput');
       var dateDisplay = document.getElementById('dateDisplay');
 
@@ -330,7 +334,7 @@
       // Set nilai input date ke tanggal saat ini
       dateInput.valueAsDate = today;
 
-      dateInput.addEventListener('change', function() {
+      dateInput.addEventListener('change', function () {
         var selectedDate = new Date(dateInput.value);
         var formattedDate = selectedDate.toLocaleDateString('id-ID', options);
 
