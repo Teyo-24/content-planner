@@ -18,6 +18,7 @@ class CreateContentPlannerTable extends Migration
             'file_content' => [
                 'type'       => 'VARCHAR',
                 'constraint' => 255,
+                'null' => true,
             ],
             'sosial_media' => [
                 'type'       => 'VARCHAR',

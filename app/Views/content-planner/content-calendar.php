@@ -287,7 +287,6 @@
                     <ul>
                     </ul>
                     <div class="text-center">
-                        <img src="" alt="Event Image" class="img-fluid mt-3" />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -392,22 +391,42 @@
 
                     // Cek apakah ada event pada tanggal ini
                     if (eventsByDate[currentDateStr]) {
+                        // Object untuk mengelompokkan event berdasarkan created_at
+                        var eventsGroupedByCreatedAt = {};
+
+                        // Mengelompokkan event berdasarkan created_at
                         eventsByDate[currentDateStr].forEach(function(event) {
+                            if (!eventsGroupedByCreatedAt[event.created_at]) {
+                                eventsGroupedByCreatedAt[event.created_at] = [];
+                            }
+                            eventsGroupedByCreatedAt[event.created_at].push(event);
+                        });
+
+                        // Membuat div untuk setiap group created_at
+                        Object.keys(eventsGroupedByCreatedAt).forEach(function(createdAt) {
+                            var events = eventsGroupedByCreatedAt[createdAt];
                             var eventDiv = document.createElement('div');
                             eventDiv.className = 'event-rect';
                             eventDiv.setAttribute('data-bs-toggle', 'modal');
                             eventDiv.setAttribute('data-bs-target', '#eventModal');
-                            eventDiv.textContent = event.content_pillar;
 
-                            // Set background color berdasarkan sosial media
-                            var color = socialMediaColors[event.sosial_media];
+                            // Jika hanya ada satu event, gunakan content_pillar dari event tersebut
+                            if (events.length === 1) {
+                                eventDiv.textContent = events[0].content_pillar;
+                            } else {
+                                // Jika lebih dari satu event, tampilkan "[Jumlah Data] Plan"
+                                eventDiv.textContent = events.length + ' Plan';
+                            }
+
+                            // Set background color berdasarkan sosial media dari event pertama
+                            var color = socialMediaColors[events[0].sosial_media];
                             if (color) {
                                 eventDiv.style.backgroundColor = color;
                             }
 
                             // Menambahkan event listener untuk mengisi data modal ketika diklik
                             eventDiv.addEventListener('click', function() {
-                                fillEventModal(currentDateStr, event);
+                                fillEventModal(currentDateStr, events);
                             });
 
                             td.appendChild(eventDiv);
@@ -449,22 +468,42 @@
 
                         // Cek apakah ada event pada tanggal ini
                         if (eventsByDate[currentDateStr]) {
+                            // Object untuk mengelompokkan event berdasarkan created_at
+                            var eventsGroupedByCreatedAt = {};
+
+                            // Mengelompokkan event berdasarkan created_at
                             eventsByDate[currentDateStr].forEach(function(event) {
+                                if (!eventsGroupedByCreatedAt[event.created_at]) {
+                                    eventsGroupedByCreatedAt[event.created_at] = [];
+                                }
+                                eventsGroupedByCreatedAt[event.created_at].push(event);
+                            });
+
+                            // Membuat div untuk setiap group created_at
+                            Object.keys(eventsGroupedByCreatedAt).forEach(function(createdAt) {
+                                var events = eventsGroupedByCreatedAt[createdAt];
                                 var eventDiv = document.createElement('div');
                                 eventDiv.className = 'event-rect';
                                 eventDiv.setAttribute('data-bs-toggle', 'modal');
                                 eventDiv.setAttribute('data-bs-target', '#eventModal');
-                                eventDiv.textContent = event.content_pillar;
 
-                                // Set background color berdasarkan sosial media
-                                var color = socialMediaColors[event.sosial_media];
+                                // Jika hanya ada satu event, gunakan content_pillar dari event tersebut
+                                if (events.length === 1) {
+                                    eventDiv.textContent = events[0].content_pillar;
+                                } else {
+                                    // Jika lebih dari satu event, tampilkan "[Jumlah Data] Plan"
+                                    eventDiv.textContent = events.length + ' Plan';
+                                }
+
+                                // Set background color berdasarkan sosial media dari event pertama
+                                var color = socialMediaColors[events[0].sosial_media];
                                 if (color) {
                                     eventDiv.style.backgroundColor = color;
                                 }
 
                                 // Menambahkan event listener untuk mengisi data modal ketika diklik
                                 eventDiv.addEventListener('click', function() {
-                                    fillEventModal(currentDateStr, event);
+                                    fillEventModal(currentDateStr, events);
                                 });
 
                                 td.appendChild(eventDiv);
@@ -485,9 +524,9 @@
             }
         }
 
-        function fillEventModal(dateStr, event) {
+        function fillEventModal(dateStr, events) {
             // Ubah format created_at menjadi [Nama Hari], [Angka Tanggal] [Nama Bulan] [Angka Tahun]
-            var date = new Date(event.created_at); // Menggunakan created_at dari event
+            var date = new Date(events[0].created_at); // Menggunakan created_at dari event pertama
             var options = {
                 weekday: 'long',
                 year: 'numeric',
@@ -497,24 +536,27 @@
             var formattedDateStr = date.toLocaleDateString('id-ID', options);
 
             // Mengisi elemen modal dengan data
-            document.querySelector('#eventModal .modal-body p').textContent = 'Content Plan untuk ' + formattedDateStr + ':';
-            document.querySelector('#eventModal .modal-body ul').innerHTML = `
-                <li>Sosial Media: ${event.sosial_media}</li>
-                <li>Content Type: ${event.content_type}</li>
-                <li>Content Pillar: ${event.content_pillar}</li>
-                <li>Status: ${event.status}</li>
-                <li>Caption: ${event.caption}</li>
-                <li>CTA/Link: ${event.cta_link}</li>
-                <li>Hashtag: ${event.hashtag}</li>
-            `;
+            var modalBodyContent = 'Content Plan untuk ' + formattedDateStr + ':';
+            var modalBodyList = '';
 
-            // Set image URL if file_content is available
-            if (event.file_content) {
-                var filePath = '<?= base_url('serve-file') ?>/' + event.file_content;
-                document.querySelector('#eventModal .modal-body img').src = filePath;
-            } else {
-                document.querySelector('#eventModal .modal-body img').src = 'https://via.placeholder.com/150';
-            }
+            // Jika ada lebih dari satu event, gabungkan data mereka
+            events.forEach(function(event) {
+                modalBodyList += `
+            <li>Sosial Media: ${event.sosial_media}</li>
+            <li>Content Type: ${event.content_type}</li>
+            <li>Content Pillar: ${event.content_pillar}</li>
+            <li>Status: ${event.status}</li>
+            <li>Caption: ${event.caption}</li>
+            <li>CTA/Link: ${event.cta_link}</li>
+            <li>Hashtag: ${event.hashtag}</li>
+            <li><img src="${event.file_content ? '<?= base_url('serve-file') ?>/' + event.file_content : 'https://via.placeholder.com/150'}" alt="Image" style="width: 100%; max-width: 300px; height: auto; margin-top: 10px;"/></li>
+            <hr> <!-- Tambahkan garis pemisah antar event -->
+        `;
+            });
+
+            // Mengisi konten modal
+            document.querySelector('#eventModal .modal-body p').textContent = modalBodyContent;
+            document.querySelector('#eventModal .modal-body ul').innerHTML = modalBodyList;
         }
 
         // Menampilkan bulan dan kalender saat ini pada tampilan pertama

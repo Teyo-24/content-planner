@@ -94,7 +94,7 @@ class ContentPlannerController extends BaseController
             $file->move(WRITEPATH . 'uploads', $fileName);
         } else {
             // Jika ada kesalahan dalam pengunggahan file
-            return redirect()->back()->with('error', 'Error in file upload');
+            $fileName = null;
         }
 
         $data = [
