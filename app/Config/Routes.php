@@ -44,3 +44,6 @@ $routes->post('/delete_content_pillar', 'ContentPlannerController::delete_conten
 $routes->post('/add_status', 'ContentPlannerController::add_status');
 $routes->post('/update_status', 'ContentPlannerController::update_status');
 $routes->post('/delete_status', 'ContentPlannerController::delete_status');
+
+// KPI
+$routes->get('/kpi', 'ContentPlannerController::kpi');

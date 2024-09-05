@@ -147,10 +147,11 @@
   <div class="container">
     <div class="header">
       <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
-        <h2 class="mb-3 mb-md-0">Input Data Content</h2>
+        <h2 class="mb-3 mb-md-0">Content Planner</h2>
         <div class="button-container">
           <a href="/"><button type="button" class="btn btn-primary">Content Calendar</button></a>
           <a href="/input-data-content"><button type="button" class="btn btn-success">Set Up</button></a>
+          <a href="/kpi"><button type="button" class="btn btn-secondary">Metrics</button></a>
         </div>
       </div>
     </div>

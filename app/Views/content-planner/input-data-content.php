@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kelola Konten</title>
+    <title>Set Up</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         table {
@@ -79,9 +79,10 @@
         <div class="header">
             <div class="d-flex flex-column flex-md-row align-items-md-center justify-content-md-between">
                 <h2 class="mb-3 mb-md-0">Set Up</h2>
-                <div class="button-container">
+                <div class="d-flex flex-wrap gap-2">
                     <a href="/"><button type="button" class="btn btn-primary">Content Calendar</button></a>
                     <a href="/content-planner"><button type="button" class="btn btn-success">Content Planner</button></a>
+                    <a href="/kpi"><button type="button" class="btn btn-secondary">Metrics</button></a>
                 </div>
             </div>
         </div>

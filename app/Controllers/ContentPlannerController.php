@@ -272,4 +272,9 @@ class ContentPlannerController extends BaseController
         $this->statusModel->delete($id);
         return $this->response->setJSON(['status' => 'success']);
     }
+
+    public function kpi()
+    {
+        return view('content-planner/input-kpi');
+    }
 }
