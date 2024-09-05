@@ -42,7 +42,7 @@
             <p class="paragraf">Tingkatkan jangkauan media sosial Anda dengan Pembuat Tagar kami yang canggih. Buat tagar yang relevan dan sedang tren untuk meningkatkan visibilitas konten Anda dan menarik minat audiens target Anda di berbagai platform.</p>
             <ul class="mt-4">
                 <li><i class="fas fa-check-circle"></i>
-                    <p class="paragraf">Masukan kata kunci terkait dengan konten</p>
+                    <p class="paragraf">Masukan kata atau topik yang terkait dengan konten</p>
                 </li>
                 <li><i class="fas fa-check-circle"></i>
                     <p class="paragraf">Tekan Generate dan Pilih Hashtag yang ingin dipakai</p>

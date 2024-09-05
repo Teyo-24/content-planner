@@ -16,15 +16,23 @@ const showAlert = (message, type = "warning") => {
 generateBtn.addEventListener("click", async () => {
   const query = hashtagInput.value.trim();
   if (query === "") {
-    showAlert("Silakan masukkan hashtag");
+    showAlert("Silakan masukkan hashtag", "warning");
     return;
   }
 
   try {
     const response = await fetch(`/generate-hashtags?query=${encodeURIComponent(query)}`);
     const result = await response.json();
+
     if (response.ok) {
       const hashtags = result.data.results;
+
+      // Cek jika tidak ada hashtag yang ditemukan
+      if (!hashtags || hashtags.length === 0) {
+        showAlert("Tidak ada hashtag yang ditemukan untuk topik ini.", "info");
+        hasilDiv.innerHTML = ""; // Kosongkan hasil jika tidak ada data
+        return;
+      }
 
       // Generate HTML with hashtag-item class
       const hasil = hashtags
@@ -44,17 +52,30 @@ generateBtn.addEventListener("click", async () => {
       hasilDiv.style.maxHeight = "200px"; // Adjust based on your needs
       hasilDiv.style.overflowY = "auto";
     } else {
-      showAlert(result.error || "Gagal mengambil data");
+      showAlert(result.error || "Gagal mengambil data dari server.", "danger");
+      hasilDiv.innerHTML = ""; // Kosongkan hasil jika terjadi error
     }
   } catch (error) {
     console.error(error);
-    showAlert("Gagal mengambil data");
+    showAlert("Terjadi kesalahan saat mengambil data. Silakan coba lagi nanti.", "danger");
+    hasilDiv.innerHTML = ""; // Kosongkan hasil jika terjadi error
   }
 });
 
 copyBtn.addEventListener("click", () => {
   const selectedHashtags = Array.from(hasilDiv.querySelectorAll('input[type="checkbox"]:checked')).map((checkbox) => checkbox.value);
+  if (selectedHashtags.length === 0) {
+    showAlert("Silakan pilih setidaknya satu hashtag untuk disalin.", "warning");
+    return;
+  }
+
   const copyText = selectedHashtags.join(" ");
-  navigator.clipboard.writeText(copyText);
-  // showAlert(`Hashtags telah dicopy: ${copyText}`, 'success');
+  navigator.clipboard
+    .writeText(copyText)
+    .then(() => {
+      showAlert(`Hashtags telah dicopy: ${copyText}`, "success");
+    })
+    .catch(() => {
+      showAlert("Gagal menyalin hashtags.", "danger");
+    });
 });
