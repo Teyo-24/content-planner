@@ -75,6 +75,38 @@
             background-color: #dc3545;
         }
 
+        .event-detail strong {
+            display: inline-block;
+            width: 100px;
+        }
+
+        .event-detail p {
+            margin: 0.5em 0;
+        }
+
+        .dropdown-menu .dropdown-item i {
+            margin-right: 10px;
+        }
+
+        .dropdown-item[data-social="tiktok"] i,
+        .dropdown-item[data-social="tiktok"] {
+            color: #000000;
+        }
+
+        .dropdown-item[data-social="facebook"] i,
+        .dropdown-item[data-social="facebook"] {
+            color: #4267B2;
+        }
+
+        .dropdown-item[data-social="youtube"] i,
+        .dropdown-item[data-social="youtube"] {
+            color: #FF0000;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+        }
+
         @media (max-width: 768px) {
             .calendar-container {
                 padding: 0.75rem;
@@ -144,7 +176,6 @@
         }
 
         @media (max-width: 320px) {
-
             .calendar-controls button {
                 font-size: 0.5rem;
             }
@@ -210,6 +241,7 @@
             }
         }
     </style>
+
 </head>
 
 <body>
@@ -540,16 +572,20 @@
             var modalBodyList = '';
 
             // Jika ada lebih dari satu event, gabungkan data mereka
-            events.forEach(function(event) {
+            events.forEach(function(event, index) {
+                var planNumber = events.length > 1 ? `<h2>Plan ${index + 1}</h2>` : '<h2>Plan 1</h2>';
                 modalBodyList += `
-            <li>Sosial Media: ${event.sosial_media}</li>
-            <li>Content Type: ${event.content_type}</li>
-            <li>Content Pillar: ${event.content_pillar}</li>
-            <li>Status: ${event.status}</li>
-            <li>Caption: ${event.caption}</li>
-            <li>CTA/Link: ${event.cta_link}</li>
-            <li>Hashtag: ${event.hashtag}</li>
-            <li><img src="${event.file_content ? '<?= base_url('serve-file') ?>/' + event.file_content : 'https://via.placeholder.com/150'}" alt="Image" style="width: 100%; max-width: 300px; height: auto; margin-top: 10px;"/></li>
+            ${planNumber}
+            <ul>
+                <li>Sosial Media: ${event.sosial_media}</li>
+                <li>Content Type: ${event.content_type}</li>
+                <li>Content Pillar: ${event.content_pillar}</li>
+                <li>Status: ${event.status}</li>
+                <li>Caption: ${event.caption}</li>
+                <li>CTA/Link: ${event.cta_link}</li>
+                <li>Hashtag: ${event.hashtag}</li>
+                <li><img src="${event.file_content ? '<?= base_url('serve-file') ?>/' + event.file_content : 'https://via.placeholder.com/150'}" alt="Image" style="width: 100%; max-width: 300px; height: auto; margin-top: 10px;"/></li>
+            </ul>
             <hr> <!-- Tambahkan garis pemisah antar event -->
         `;
             });
@@ -557,6 +593,14 @@
             // Mengisi konten modal
             document.querySelector('#eventModal .modal-body p').textContent = modalBodyContent;
             document.querySelector('#eventModal .modal-body ul').innerHTML = modalBodyList;
+
+            // Set image URL berdasarkan event pertama jika ada
+            if (events[0].file_content) {
+                var filePath = '<?= base_url('serve-file') ?>/' + events[0].file_content;
+                document.querySelector('#eventModal .modal-body img').src = filePath;
+            } else {
+                document.querySelector('#eventModal .modal-body img').src = 'https://via.placeholder.com/150';
+            }
         }
 
         // Menampilkan bulan dan kalender saat ini pada tampilan pertama
