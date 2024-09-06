@@ -8,6 +8,9 @@ use App\Models\SosialMedia;
 use App\Models\ContentPillar;
 use App\Models\ContentType;
 use App\Models\Status;
+use App\Models\InstagramMetrics;
+use App\Models\TiktokMetrics;
+use App\Models\YoutubeMetrics;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class ContentPlannerController extends BaseController
@@ -275,6 +278,18 @@ class ContentPlannerController extends BaseController
 
     public function kpi()
     {
-        return view('content-planner/input-kpi');
+        $modelIGMetrics = new InstagramMetrics();
+        $modelTTMetrics = new TiktokMetrics();
+        $modelYTMetrics = new YoutubeMetrics();
+
+        $igMetrics = $modelIGMetrics->findAll();
+        $ttMetrics = $modelTTMetrics->findAll();
+        $ytMetrics = $modelYTMetrics->findAll();
+
+        $data['igMetrics'] = $igMetrics;
+        $data['ttMetrics'] = $ttMetrics;
+        $data['ytMetrics'] = $ytMetrics;
+
+        return view('content-planner/input-kpi', $data);
     }
 }
