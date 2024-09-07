@@ -83,9 +83,9 @@
                             Media Sosial
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Tiktok</a></li>
-                            <li><a class="dropdown-item" href="#">Facebook</a></li>
-                            <li><a class="dropdown-item" href="#">Youtube</a></li>
+                            <li><a class="dropdown-item" onclick="changeData('instagram')">Instagram</a></li>
+                            <li><a class="dropdown-item" onclick="changeData('tiktok')">Tiktok</a></li>
+                            <li><a class="dropdown-item" onclick="changeData('youtube')">Youtube</a></li>
                         </ul>
                     </div>
                     <!-- end dropdown button -->
@@ -106,7 +106,8 @@
                 <hr class="line-separatorkecil">
             </div>
             <!-- end nama data -->
-            <div class="table-responsive">
+            <div class="table-responsive" id="data-table">
+                <!-- Tabel akan di-update secara dinamis di sini -->
                 <table class="table table-striped" style="border-collapse: separate; border-radius: 20px; overflow: hidden;">
                     <thead class="table-dark">
                         <tr style="text-align: center;">
@@ -126,151 +127,8 @@
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="fw-bold">Followers Goal</td>
-                            <td contenteditable="true">250</td>
-                            <td contenteditable="true">500</td>
-                            <td contenteditable="true">750</td>
-                            <td contenteditable="true">1000</td>
-                            <td contenteditable="true">1500</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true">3500</td>
-                            <td contenteditable="true">4000</td>
-                            <td contenteditable="true">4500</td>
-                            <td contenteditable="true">5000</td>
-                            <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Followers Real</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Reach Goal</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Reach Real</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Like/Post Goal</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Like/Post Real</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Comment/Post Goal</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="fw-bold">Comment/Post Real</td>
-                            <td contenteditable="true">100</td>
-                            <td contenteditable="true">300</td>
-                            <td contenteditable="true">700</td>
-                            <td contenteditable="true">900</td>
-                            <td contenteditable="true">1300</td>
-                            <td contenteditable="true">2000</td>
-                            <td contenteditable="true">2100</td>
-                            <td contenteditable="true">2500</td>
-                            <td contenteditable="true">3000</td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td contenteditable="true"></td>
-                            <td class="text-center">
-                                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                            </td>
-                        </tr>
+                    <tbody id="data-body">
+                        <!-- Data akan diisi di sini -->
                     </tbody>
                 </table>
                 <div class="input-group mb-3">
@@ -278,15 +136,53 @@
                     <button class="btn btn-primary" type="button" id="add-data-btn">Add Data</button>
                 </div>
             </div>
-
-
-
-
-
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        const dataSources = {
+            instagram: <?php echo json_encode($igMetrics); ?>,
+            tiktok: <?php echo json_encode($ttMetrics); ?>,
+            youtube: <?php echo json_encode($ytMetrics); ?>
+        };
+
+        function changeData(media) {
+            const dataBody = document.getElementById('data-body');
+            dataBody.innerHTML = '';
+
+            const selectedData = dataSources[media];
+            selectedData.forEach(item => {
+                const row = document.createElement('tr');
+
+                row.innerHTML = `
+                <td class="fw-bold">${item.nama_trend || ''}</td>
+                <td contenteditable="true">${item.januari || ''}</td>
+                <td contenteditable="true">${item.februari || ''}</td>
+                <td contenteditable="true">${item.maret || ''}</td>
+                <td contenteditable="true">${item.april || ''}</td>
+                <td contenteditable="true">${item.mei || ''}</td>
+                <td contenteditable="true">${item.juni || ''}</td>
+                <td contenteditable="true">${item.juli || ''}</td>
+                <td contenteditable="true">${item.agustus || ''}</td>
+                <td contenteditable="true">${item.september || ''}</td>
+                <td contenteditable="true">${item.oktober || ''}</td>
+                <td contenteditable="true">${item.november || ''}</td>
+                <td contenteditable="true">${item.desember || ''}</td>
+                <td class="text-center">
+                    <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                </td>
+            `;
+
+                dataBody.appendChild(row);
+            });
+        }
+
+        // Load default data (Instagram)
+        window.onload = function() {
+            changeData('instagram');
+        };
+    </script>
 </body>
 
 </html>
