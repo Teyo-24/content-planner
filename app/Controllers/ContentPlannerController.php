@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\InstagramMetrics;
 use App\Models\TiktokMetrics;
 use App\Models\YoutubeMetrics;
+use App\Models\TrendModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class ContentPlannerController extends BaseController
@@ -291,5 +292,44 @@ class ContentPlannerController extends BaseController
         $data['ytMetrics'] = $ytMetrics;
 
         return view('content-planner/input-kpi', $data);
+    }
+
+    public function addTrend()
+    {
+        $trendName = $this->request->getPost('trend_name');
+        $media = $this->request->getPost('media');
+        $year = $this->request->getPost('year');
+
+        if ($trendName && $media && $year) {
+            $model = new TrendModel($media);
+            $data = [
+                'nama_trend' => $trendName,
+                'created_at' => $year,
+                'januari' => null,
+                'februari' => null,
+                'maret' => null,
+                'april' => null,
+                'mei' => null,
+                'juni' => null,
+                'juli' => null,
+                'agustus' => null,
+                'september' => null,
+                'oktober' => null,
+                'november' => null,
+                'desember' => null
+            ];
+            $model->insert($data);
+
+            // Kembalikan data yang baru dimasukkan sebagai respons JSON
+            return $this->response->setJSON([
+                'status' => 'success',
+                'data' => $data
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Invalid input data.'
+        ]);
     }
 }

@@ -132,7 +132,7 @@
                     </tbody>
                 </table>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="new-trend" placeholder="Nama Content Type">
+                    <input type="text" class="form-control" id="new-trend" placeholder="Nama Trend">
                     <button class="btn btn-primary" type="button" id="add-data-btn">Add Data</button>
                 </div>
             </div>
@@ -141,48 +141,154 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
+        document.getElementById('add-data-btn').addEventListener('click', function() {
+            const trendName = document.getElementById('new-trend').value;
+
+            if (trendName) {
+                fetch('<?= base_url('trend/add') ?>', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        },
+                        body: new URLSearchParams({
+                            trend_name: trendName,
+                            media: currentMedia,
+                            year: currentYear
+                        })
+                    }).then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            // Cari dan hapus baris "No data available for this year." jika ada
+                            const noDataRow = document.querySelector('#data-body tr td[colspan="14"]');
+                            if (noDataRow) {
+                                noDataRow.parentElement.remove();
+                            }
+
+                            // Tambahkan baris baru ke tabel tanpa refresh seluruh halaman
+                            const newRow = document.createElement('tr');
+                            newRow.innerHTML = `
+                    <td class="fw-bold" contenteditable="true">${data.data.nama_trend}</td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td contenteditable="true"></td>
+                    <td class="text-center">
+                        <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                    </td>
+                `;
+                            document.getElementById('data-body').appendChild(newRow);
+
+                            // Kosongkan input setelah menambah data
+                            document.getElementById('new-trend').value = '';
+                        } else {
+                            alert('Failed to add trend. Please try again.');
+                        }
+                    });
+            } else {
+                alert('Please enter a trend name.');
+            }
+        });
+
+        // Menyimpan tahun saat ini
+        let currentYear = new Date().getFullYear();
+        let currentMedia = 'instagram'; // Menyimpan media sosial saat ini
+
         const dataSources = {
             instagram: <?php echo json_encode($igMetrics); ?>,
             tiktok: <?php echo json_encode($ttMetrics); ?>,
             youtube: <?php echo json_encode($ytMetrics); ?>
         };
 
-        function changeData(media) {
+        function changeData(media, year = currentYear) {
             const dataBody = document.getElementById('data-body');
             dataBody.innerHTML = '';
 
-            const selectedData = dataSources[media];
-            selectedData.forEach(item => {
-                const row = document.createElement('tr');
+            // Simpan media yang dipilih
+            currentMedia = media;
 
-                row.innerHTML = `
-                <td class="fw-bold">${item.nama_trend || ''}</td>
-                <td contenteditable="true">${item.januari || ''}</td>
-                <td contenteditable="true">${item.februari || ''}</td>
-                <td contenteditable="true">${item.maret || ''}</td>
-                <td contenteditable="true">${item.april || ''}</td>
-                <td contenteditable="true">${item.mei || ''}</td>
-                <td contenteditable="true">${item.juni || ''}</td>
-                <td contenteditable="true">${item.juli || ''}</td>
-                <td contenteditable="true">${item.agustus || ''}</td>
-                <td contenteditable="true">${item.september || ''}</td>
-                <td contenteditable="true">${item.oktober || ''}</td>
-                <td contenteditable="true">${item.november || ''}</td>
-                <td contenteditable="true">${item.desember || ''}</td>
-                <td class="text-center">
-                    <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                </td>
-            `;
+            // Update teks h5 sesuai dengan pilihan pengguna
+            document.querySelector('.textcontent h5').innerText = capitalizeFirstLetter(media);
 
-                dataBody.appendChild(row);
-            });
+            // Filter data berdasarkan tahun yang dipilih
+            const selectedData = dataSources[media].filter(item => item.created_at == year);
+
+            if (selectedData.length === 0) {
+                dataBody.innerHTML = '<tr><td colspan="14" class="text-center">No data available for this year.</td></tr>';
+            } else {
+                selectedData.forEach(item => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                    <td class="fw-bold" contenteditable="true">${item.nama_trend || ''}</td>
+                    <td contenteditable="true">${item.januari || ''}</td>
+                    <td contenteditable="true">${item.februari || ''}</td>
+                    <td contenteditable="true">${item.maret || ''}</td>
+                    <td contenteditable="true">${item.april || ''}</td>
+                    <td contenteditable="true">${item.mei || ''}</td>
+                    <td contenteditable="true">${item.juni || ''}</td>
+                    <td contenteditable="true">${item.juli || ''}</td>
+                    <td contenteditable="true">${item.agustus || ''}</td>
+                    <td contenteditable="true">${item.september || ''}</td>
+                    <td contenteditable="true">${item.oktober || ''}</td>
+                    <td contenteditable="true">${item.november || ''}</td>
+                    <td contenteditable="true">${item.desember || ''}</td>
+                    <td class="text-center">
+                        <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+                    </td>
+                `;
+
+                    dataBody.appendChild(row);
+                });
+            }
         }
+
+        function updateYear(increment) {
+            currentYear += increment;
+            document.querySelector('h4').innerText = currentYear; // Update tampilan tahun
+            changeData(currentMedia, currentYear); // Refresh data untuk tahun baru
+        }
+
+        // Capitalize first letter of media name
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        // Event listener untuk tombol chevron
+        document.getElementById('prevMonth').addEventListener('click', function() {
+            updateYear(-1);
+        });
+
+        document.getElementById('nextMonth').addEventListener('click', function() {
+            updateYear(1);
+        });
+
+        // Event listener untuk yearPicker
+        document.getElementById('yearPicker').addEventListener('change', function() {
+            const selectedYear = parseInt(this.value);
+            if (selectedYear >= 1900 && selectedYear <= 2100) {
+                currentYear = selectedYear;
+                document.querySelector('h4').innerText = currentYear; // Update tampilan tahun
+                changeData(currentMedia, currentYear); // Refresh data untuk tahun baru
+            } else {
+                alert('Please enter a valid year between 1900 and 2100.');
+            }
+        });
 
         // Load default data (Instagram)
         window.onload = function() {
             changeData('instagram');
         };
     </script>
+
 </body>
 
 </html>
