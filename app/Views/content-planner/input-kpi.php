@@ -198,6 +198,84 @@
             }
         });
 
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('delete-content-type')) {
+                const row = event.target.closest('tr');
+                const trendName = row.querySelector('td').textContent.trim();
+
+                if (confirm(`Are you sure you want to delete the trend "${trendName}"?`)) {
+                    deleteTrend(trendName, row);
+                }
+            }
+        });
+
+        document.querySelector('#data-body').addEventListener('blur', function(event) {
+            if (event.target.hasAttribute('contenteditable')) {
+                const row = event.target.closest('tr');
+                const trendName = row.querySelector('td').textContent.trim();
+                const monthData = Array.from(row.querySelectorAll('td[contenteditable]'))
+                    .map(cell => cell.textContent.trim());
+
+                updateTrend(trendName, monthData);
+            }
+        }, true);
+
+        function updateTrend(trendName, monthData) {
+            fetch('<?= base_url('trend/update') ?>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: new URLSearchParams({
+                        trend_name: trendName,
+                        media: currentMedia,
+                        year: currentYear,
+                        januari: monthData[1] || null,
+                        februari: monthData[2] || null,
+                        maret: monthData[3] || null,
+                        april: monthData[4] || null,
+                        mei: monthData[5] || null,
+                        juni: monthData[6] || null,
+                        juli: monthData[7] || null,
+                        agustus: monthData[8] || null,
+                        september: monthData[9] || null,
+                        oktober: monthData[10] || null,
+                        november: monthData[11] || null,
+                        desember: monthData[12] || null
+                    })
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // alert('Trend updated successfully!');
+                    } else {
+                        alert('Failed to update trend. Please try again.');
+                    }
+                });
+        }
+
+        function deleteTrend(trendName, row) {
+            fetch('<?= base_url('trend/delete') ?>', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: new URLSearchParams({
+                        trend_name: trendName,
+                        media: currentMedia,
+                        year: currentYear
+                    })
+                }).then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        row.remove();
+                    } else {
+                        alert('Failed to delete trend. Please try again.');
+                    }
+                });
+        }
+
         // Menyimpan tahun saat ini
         let currentYear = new Date().getFullYear();
         let currentMedia = 'instagram'; // Menyimpan media sosial saat ini

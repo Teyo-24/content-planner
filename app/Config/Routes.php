@@ -48,3 +48,5 @@ $routes->post('/delete_status', 'ContentPlannerController::delete_status');
 // KPI
 $routes->get('/kpi', 'ContentPlannerController::kpi');
 $routes->post('trend/add', 'ContentPlannerController::addTrend');
+$routes->post('trend/update', 'ContentPlannerController::updateTrend');
+$routes->post('trend/delete', 'ContentPlannerController::deleteTrend');

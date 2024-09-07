@@ -332,4 +332,59 @@ class ContentPlannerController extends BaseController
             'message' => 'Invalid input data.'
         ]);
     }
+
+    public function updateTrend()
+    {
+        $trendName = $this->request->getPost('trend_name');
+        $media = $this->request->getPost('media');
+        $year = $this->request->getPost('year');
+
+        $data = [
+            'januari' => $this->request->getPost('januari'),
+            'februari' => $this->request->getPost('februari'),
+            'maret' => $this->request->getPost('maret'),
+            'april' => $this->request->getPost('april'),
+            'mei' => $this->request->getPost('mei'),
+            'juni' => $this->request->getPost('juni'),
+            'juli' => $this->request->getPost('juli'),
+            'agustus' => $this->request->getPost('agustus'),
+            'september' => $this->request->getPost('september'),
+            'oktober' => $this->request->getPost('oktober'),
+            'november' => $this->request->getPost('november'),
+            'desember' => $this->request->getPost('desember')
+        ];
+
+        $model = new TrendModel($media);
+        $model->where('nama_trend', $trendName)
+            ->where('created_at', $year)
+            ->set($data)
+            ->update();
+
+        return $this->response->setJSON([
+            'status' => 'success'
+        ]);
+    }
+
+    public function deleteTrend()
+    {
+        $trendName = $this->request->getPost('trend_name');
+        $media = $this->request->getPost('media');
+        $year = $this->request->getPost('year');
+
+        if ($trendName && $media && $year) {
+            $model = new TrendModel($media);
+            $model->where('nama_trend', $trendName)
+                ->where('created_at', $year)
+                ->delete();
+
+            return $this->response->setJSON([
+                'status' => 'success'
+            ]);
+        }
+
+        return $this->response->setJSON([
+            'status' => 'error',
+            'message' => 'Invalid input data.'
+        ]);
+    }
 }
