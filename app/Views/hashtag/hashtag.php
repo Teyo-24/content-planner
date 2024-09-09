@@ -35,6 +35,7 @@
                     <div id="hasil" class="hashtag-container"></div>
                 </div>
             </div>
+            <button id="select-all-btn" class="btn btn-secondary mt-3">Select All</button>
             <button id="copy-btn" class="btn btn-success mt-3"><i class="fas fa-copy"></i> Copy</button>
         </div>
         <div class="right-panel">

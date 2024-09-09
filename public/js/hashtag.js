@@ -3,6 +3,7 @@ const hashtagInput = document.getElementById("hashtag-input");
 const hasilDiv = document.getElementById("hasil");
 const copyBtn = document.getElementById("copy-btn");
 const alertPlaceholder = document.getElementById("alert-placeholder");
+const selectAllBtn = document.getElementById("select-all-btn");
 
 const showAlert = (message, type = "warning") => {
   alertPlaceholder.innerHTML = `
@@ -27,14 +28,12 @@ generateBtn.addEventListener("click", async () => {
     if (response.ok) {
       const hashtags = result.data.results;
 
-      // Cek jika tidak ada hashtag yang ditemukan
       if (!hashtags || hashtags.length === 0) {
         showAlert("Tidak ada hashtag yang ditemukan untuk topik ini.", "info");
-        hasilDiv.innerHTML = ""; // Kosongkan hasil jika tidak ada data
+        hasilDiv.innerHTML = "";
         return;
       }
 
-      // Generate HTML with hashtag-item class
       const hasil = hashtags
         .map((item, index) => {
           return `
@@ -47,19 +46,26 @@ generateBtn.addEventListener("click", async () => {
         .join("");
 
       hasilDiv.innerHTML = hasil;
-
-      // Ensure hashtags container is scrollable if content overflows
-      hasilDiv.style.maxHeight = "200px"; // Adjust based on your needs
+      hasilDiv.style.maxHeight = "200px";
       hasilDiv.style.overflowY = "auto";
     } else {
       showAlert(result.error || "Gagal mengambil data dari server.", "danger");
-      hasilDiv.innerHTML = ""; // Kosongkan hasil jika terjadi error
+      hasilDiv.innerHTML = "";
     }
   } catch (error) {
     console.error(error);
     showAlert("Terjadi kesalahan saat mengambil data. Silakan coba lagi nanti.", "danger");
-    hasilDiv.innerHTML = ""; // Kosongkan hasil jika terjadi error
+    hasilDiv.innerHTML = "";
   }
+});
+
+// Select All functionality
+selectAllBtn.addEventListener("click", () => {
+  const checkboxes = hasilDiv.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = true;
+  });
+  showAlert("Semua hashtag telah dipilih.", "success");
 });
 
 copyBtn.addEventListener("click", () => {
