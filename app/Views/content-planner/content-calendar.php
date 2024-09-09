@@ -243,7 +243,7 @@
 </head>
 
 <body>
-    <!-- navbar -->
+    <!-- navbar
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Navbar</a>
@@ -293,7 +293,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
     <!-- calendar -->
     <div class="container mt-4">
