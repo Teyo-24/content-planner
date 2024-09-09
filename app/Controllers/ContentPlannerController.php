@@ -335,11 +335,13 @@ class ContentPlannerController extends BaseController
 
     public function updateTrend()
     {
-        $trendName = $this->request->getPost('trend_name');
+        $newTrendName = $this->request->getPost('trend_name');
+        $oldTrendName = $this->request->getPost('old_trend_name');
         $media = $this->request->getPost('media');
         $year = $this->request->getPost('year');
 
         $data = [
+            'nama_trend' => $newTrendName,
             'januari' => $this->request->getPost('januari'),
             'februari' => $this->request->getPost('februari'),
             'maret' => $this->request->getPost('maret'),
@@ -355,7 +357,7 @@ class ContentPlannerController extends BaseController
         ];
 
         $model = new TrendModel($media);
-        $model->where('nama_trend', $trendName)
+        $model->where('nama_trend', $oldTrendName)
             ->where('created_at', $year)
             ->set($data)
             ->update();

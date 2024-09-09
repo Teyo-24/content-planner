@@ -168,7 +168,7 @@
                             // Tambahkan baris baru ke tabel tanpa refresh seluruh halaman
                             const newRow = document.createElement('tr');
                             newRow.innerHTML = `
-                    <td class="fw-bold" contenteditable="true">${data.data.nama_trend}</td>
+                    <td class="fw-bold" contenteditable="true" data-type"nama_trend">${data.data.nama_trend}</td>
                     <td contenteditable="true"></td>
                     <td contenteditable="true"></td>
                     <td contenteditable="true"></td>
@@ -212,15 +212,22 @@
         document.querySelector('#data-body').addEventListener('blur', function(event) {
             if (event.target.hasAttribute('contenteditable')) {
                 const row = event.target.closest('tr');
-                const trendName = row.querySelector('td').textContent.trim();
-                const monthData = Array.from(row.querySelectorAll('td[contenteditable]'))
+                const trendNameCell = row.querySelector('td[data-type="nama_trend"]');
+                const oldTrendName = trendNameCell.getAttribute('data-old-value');
+                const newTrendName = trendNameCell.textContent.trim();
+                const monthData = Array.from(row.querySelectorAll('td[contenteditable]:not([data-type="nama_trend"])'))
                     .map(cell => cell.textContent.trim());
 
-                updateTrend(trendName, monthData);
+                if (newTrendName !== oldTrendName) {
+                    trendNameCell.setAttribute('data-old-value', newTrendName); // Update old value after successful update
+                    updateTrend(newTrendName, monthData, oldTrendName); // Kirim oldTrendName untuk identifikasi
+                } else {
+                    updateTrend(newTrendName, monthData);
+                }
             }
         }, true);
 
-        function updateTrend(trendName, monthData) {
+        function updateTrend(newTrendName, monthData, oldTrendName = null) {
             fetch('<?= base_url('trend/update') ?>', {
                     method: 'POST',
                     headers: {
@@ -228,26 +235,27 @@
                         'X-Requested-With': 'XMLHttpRequest'
                     },
                     body: new URLSearchParams({
-                        trend_name: trendName,
+                        trend_name: newTrendName,
+                        old_trend_name: oldTrendName || newTrendName, // Kirim nama lama jika ada perubahan
                         media: currentMedia,
                         year: currentYear,
-                        januari: monthData[1] || null,
-                        februari: monthData[2] || null,
-                        maret: monthData[3] || null,
-                        april: monthData[4] || null,
-                        mei: monthData[5] || null,
-                        juni: monthData[6] || null,
-                        juli: monthData[7] || null,
-                        agustus: monthData[8] || null,
-                        september: monthData[9] || null,
-                        oktober: monthData[10] || null,
-                        november: monthData[11] || null,
-                        desember: monthData[12] || null
+                        januari: monthData[0] || null,
+                        februari: monthData[1] || null,
+                        maret: monthData[2] || null,
+                        april: monthData[3] || null,
+                        mei: monthData[4] || null,
+                        juni: monthData[5] || null,
+                        juli: monthData[6] || null,
+                        agustus: monthData[7] || null,
+                        september: monthData[8] || null,
+                        oktober: monthData[9] || null,
+                        november: monthData[10] || null,
+                        desember: monthData[11] || null
                     })
                 }).then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {
-                        // alert('Trend updated successfully!');
+                        // Perbarui tampilan atau lakukan tindakan lainnya jika perlu
                     } else {
                         alert('Failed to update trend. Please try again.');
                     }
@@ -290,13 +298,8 @@
             const dataBody = document.getElementById('data-body');
             dataBody.innerHTML = '';
 
-            // Simpan media yang dipilih
             currentMedia = media;
-
-            // Update teks h5 sesuai dengan pilihan pengguna
             document.querySelector('.textcontent h5').innerText = capitalizeFirstLetter(media);
-
-            // Filter data berdasarkan tahun yang dipilih
             const selectedData = dataSources[media].filter(item => item.created_at == year);
 
             if (selectedData.length === 0) {
@@ -304,25 +307,24 @@
             } else {
                 selectedData.forEach(item => {
                     const row = document.createElement('tr');
-
                     row.innerHTML = `
-                    <td class="fw-bold" contenteditable="true">${item.nama_trend || ''}</td>
-                    <td contenteditable="true">${item.januari || ''}</td>
-                    <td contenteditable="true">${item.februari || ''}</td>
-                    <td contenteditable="true">${item.maret || ''}</td>
-                    <td contenteditable="true">${item.april || ''}</td>
-                    <td contenteditable="true">${item.mei || ''}</td>
-                    <td contenteditable="true">${item.juni || ''}</td>
-                    <td contenteditable="true">${item.juli || ''}</td>
-                    <td contenteditable="true">${item.agustus || ''}</td>
-                    <td contenteditable="true">${item.september || ''}</td>
-                    <td contenteditable="true">${item.oktober || ''}</td>
-                    <td contenteditable="true">${item.november || ''}</td>
-                    <td contenteditable="true">${item.desember || ''}</td>
-                    <td class="text-center">
-                        <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
-                    </td>
-                `;
+            <td class="fw-bold" contenteditable="true" data-type="nama_trend" data-old-value="${item.nama_trend || ''}">${item.nama_trend || ''}</td>
+            <td contenteditable="true">${item.januari || ''}</td>
+            <td contenteditable="true">${item.februari || ''}</td>
+            <td contenteditable="true">${item.maret || ''}</td>
+            <td contenteditable="true">${item.april || ''}</td>
+            <td contenteditable="true">${item.mei || ''}</td>
+            <td contenteditable="true">${item.juni || ''}</td>
+            <td contenteditable="true">${item.juli || ''}</td>
+            <td contenteditable="true">${item.agustus || ''}</td>
+            <td contenteditable="true">${item.september || ''}</td>
+            <td contenteditable="true">${item.oktober || ''}</td>
+            <td contenteditable="true">${item.november || ''}</td>
+            <td contenteditable="true">${item.desember || ''}</td>
+            <td class="text-center">
+                <button class="btn btn-danger btn-sm delete-content-type" style="width: 100%; min-width: 80px;">Delete</button>
+            </td>
+        `;
 
                     dataBody.appendChild(row);
                 });
