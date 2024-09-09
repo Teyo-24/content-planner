@@ -18,6 +18,8 @@ $routes->get('/generate-hashtags', 'HashtaggeneratorController::generate');
 // calender
 $routes->get('/', 'ContentPlannerController::calender');
 
+$routes->get('/raw', 'ContentPlannerController::raw');
+
 // content Planner
 $routes->get('/content-planner', 'ContentPlannerController::index');
 $routes->post('/content-planner/add', 'ContentPlannerController::add');

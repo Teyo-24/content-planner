@@ -10,7 +10,6 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css">
-
     <style>
         .calendar-container {
             background-color: #d1d1d6;
@@ -77,7 +76,7 @@
 
         .event-detail strong {
             display: inline-block;
-            width: 100px;
+            width: 150px;
         }
 
         .event-detail p {
@@ -241,16 +240,45 @@
             }
         }
     </style>
-
 </head>
 
 <body>
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">Content Calendar</a>
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <div class="ms-auto pe-3">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+                </ul>
+                <div class="pe-3">
                     <div class="dropdown">
                         <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -267,24 +295,24 @@
         </div>
     </nav>
 
-    <!-- callender -->
+    <!-- calendar -->
     <div class="container mt-4">
         <h3>Content Calendar</h3>
         <hr>
         <div class="calendar-container mt-4">
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
+            <div class="head d-flex justify-content-between align-items-center">
                 <h5 class="m-0" id="dataDisplay"></h5>
-                <div class="calendar-controls d-flex align-items-center flex-wrap">
-                    <button class="btn btn-light me-3 mb-2 mb-md-0" id="prevMonth">
+                <div class="calendar-controls d-flex align-items-center">
+                    <button class="btn btn-light me-2" id="prevMonth">
                         <i class="bi bi-chevron-left"></i>
                     </button>
-                    <button class="btn btn-light mb-2 mb-md-0" id="nextMonth">
+                    <button class="btn btn-light" id="nextMonth">
                         <i class="bi bi-chevron-right"></i>
                     </button>
-                    <input type="month" id="monthPicker" class="ms-3 mb-2 mb-md-0">
-                    <button type="button" class="btn btn-primary ms-3 mt-2 mt-md-0">Cari</button>
+                    <input type="month" id="monthPicker" class="ms-3 form-control-sm">
+                    <button type="button" class="add2 btn btn-primary ms-3">Cari</button>
                     <a href="/content-planner">
-                        <button type="button" class="btn btn-success ms-3 mt-2 mt-md-0">Content Planner</button>
+                        <button type="button" class="add btn btn-success ms-3">Content Planner</button>
                     </a>
                 </div>
             </div>
@@ -307,17 +335,30 @@
 
     <!-- Pop Up -->
     <div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="eventModalLabel">Detail Content Plan</h5>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="eventModalLabel">Detail Content Plan: [Nama Content Pillar]</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>
+                    <div class="mb-3">
+                        <div class="mb-3">
+                            <a href=""><button type="button" class="btn" style="background-color: #010101; color: white;">Tiktok</button></a>
+                            <a href=""><button type="button" class="btn" style="background-color: #E4405F; color: white;">Instagram</button></a>
+                            <a href=""><button type="button" class="btn" style="background-color: #1877F2; color: white;">Facebook</button></a>
+                            <a href=""><button type="button" class="btn" style="background-color: #FF0000; color: white;">Youtube</button></a>
+                            <a href=""><button type="button" class="btn" style="background-color: #0077B5; color: white;">LinkedIn</button></a>
+                            <a href=""><button type="button" class="btn" style="background-color: #E60023; color: white;">Pinterest</button></a>
+                            <a href=""><button type="button" class="btn" style="background-color: #FF0000; color: white;">Youtube</button></a>
+                            <a href=""><button type="button" class="btn" style="background-color: #0077B5; color: white;">LinkedIn</button></a>
+                            <a href=""><button type="button" class="btn mt-2" style="background-color: #E60023; color: white;">Pinterest</button></a>
+                        </div>
+                    </div>
+                    <p class="mb-3">
                     </p>
-                    <ul>
-                    </ul>
+                    <ol class="event-detail list-group">
+                    </ol>
                     <div class="text-center">
                     </div>
                 </div>
@@ -568,31 +609,32 @@
             var formattedDateStr = date.toLocaleDateString('id-ID', options);
 
             // Mengisi elemen modal dengan data
-            var modalBodyContent = 'Content Plan untuk ' + formattedDateStr + ':';
+            var modalBodyContent = 'Content Plan untuk <strong>' + formattedDateStr + '</strong>:';
             var modalBodyList = '';
-
             // Jika ada lebih dari satu event, gabungkan data mereka
             events.forEach(function(event, index) {
                 var planNumber = events.length > 1 ? `<h2>Plan ${index + 1}</h2>` : '<h2>Plan 1</h2>';
                 modalBodyList += `
             ${planNumber}
-            <ul>
-                <li>Sosial Media: ${event.sosial_media}</li>
-                <li>Content Type: ${event.content_type}</li>
-                <li>Content Pillar: ${event.content_pillar}</li>
-                <li>Status: ${event.status}</li>
-                <li>Caption: ${event.caption}</li>
-                <li>CTA/Link: ${event.cta_link}</li>
-                <li>Hashtag: ${event.hashtag}</li>
-                <li><img src="${event.file_content ? '<?= base_url('serve-file') ?>/' + event.file_content : 'https://via.placeholder.com/150'}" alt="Image" style="width: 100%; max-width: 300px; height: auto; margin-top: 10px;"/></li>
-            </ul>
+                <li class="list-group-item">
+                    <strong>Sosial Media:</strong> ${event.sosial_media}<br>
+                    <strong>Content Type:</strong> ${event.content_type}<br>
+                    <strong>Content Pillar:</strong> ${event.content_pillar}<br>
+                    <strong>Status:</strong> ${event.status}<br>
+                    <strong>Caption:</strong> ${event.caption}<br>
+                    <strong>CTA/Link:</strong> ${event.cta_link}<br>
+                    <strong>Hashtag:</strong> ${event.hashtag}<br>
+                </li>
+            <div class="text-center mt-3">
+                <img src="${event.file_content ? '<?= base_url('serve-file') ?>/' + event.file_content : 'https://via.placeholder.com/150'}" alt="Image" style="width: 100%; max-width: 300px; height: auto; margin-top: 10px;"/>
+            </div>
             <hr> <!-- Tambahkan garis pemisah antar event -->
         `;
             });
 
             // Mengisi konten modal
-            document.querySelector('#eventModal .modal-body p').textContent = modalBodyContent;
-            document.querySelector('#eventModal .modal-body ul').innerHTML = modalBodyList;
+            document.querySelector('#eventModal .modal-body p').innerHTML = modalBodyContent;
+            document.querySelector('#eventModal .modal-body ol').innerHTML = modalBodyList;
 
             // Set image URL berdasarkan event pertama jika ada
             if (events[0].file_content) {

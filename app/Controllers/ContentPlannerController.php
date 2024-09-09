@@ -30,6 +30,10 @@ class ContentPlannerController extends BaseController
         }
     }
 
+    public function raw() {
+        return view('content-planner/ccalendar-raw');
+    }
+
     public function calender()
     {
         $modelCPlanner = new ContentPlanner();
