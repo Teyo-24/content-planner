@@ -86,6 +86,9 @@
                             <li><a class="dropdown-item" onclick="changeData('instagram')">Instagram</a></li>
                             <li><a class="dropdown-item" onclick="changeData('tiktok')">Tiktok</a></li>
                             <li><a class="dropdown-item" onclick="changeData('youtube')">Youtube</a></li>
+                            <li><a class="dropdown-item" onclick="changeData('facebook')">Facebook</a></li>
+                            <li><a class="dropdown-item" onclick="changeData('pinterest')">Pinterest</a></li>
+                            <li><a class="dropdown-item" onclick="changeData('linkedin')">LinkedIn</a></li>
                         </ul>
                     </div>
                     <!-- end dropdown button -->
@@ -291,7 +294,10 @@
         const dataSources = {
             instagram: <?php echo json_encode($igMetrics); ?>,
             tiktok: <?php echo json_encode($ttMetrics); ?>,
-            youtube: <?php echo json_encode($ytMetrics); ?>
+            youtube: <?php echo json_encode($ytMetrics); ?>,
+            facebook: <?php echo json_encode($fbMetrics); ?>,
+            pinterest: <?php echo json_encode($pinMetrics); ?>,
+            linkedin: <?php echo json_encode($lkdMetrics); ?>
         };
 
         function changeData(media, year = currentYear) {
