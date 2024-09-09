@@ -11,6 +11,9 @@ use App\Models\Status;
 use App\Models\InstagramMetrics;
 use App\Models\TiktokMetrics;
 use App\Models\YoutubeMetrics;
+use App\Models\FacebookMetrics;
+use App\Models\PinterestMetrics;
+use App\Models\LinkedinMetrics;
 use App\Models\TrendModel;
 use CodeIgniter\HTTP\ResponseInterface;
 
@@ -282,14 +285,23 @@ class ContentPlannerController extends BaseController
         $modelIGMetrics = new InstagramMetrics();
         $modelTTMetrics = new TiktokMetrics();
         $modelYTMetrics = new YoutubeMetrics();
+        $modelFBMetrics = new FacebookMetrics();
+        $modelPINMetrics = new PinterestMetrics();
+        $modelLKDMetrics = new LinkedinMetrics();
 
         $igMetrics = $modelIGMetrics->findAll();
         $ttMetrics = $modelTTMetrics->findAll();
         $ytMetrics = $modelYTMetrics->findAll();
+        $fbMetrics = $modelFBMetrics->findAll();
+        $pinMetrics = $modelPINMetrics->findAll();
+        $lkdMetrics = $modelLKDMetrics->findAll();
 
         $data['igMetrics'] = $igMetrics;
         $data['ttMetrics'] = $ttMetrics;
         $data['ytMetrics'] = $ytMetrics;
+        $data['fbMetrics'] = $fbMetrics;
+        $data['pinMetrics'] = $pinMetrics;
+        $data['lkdMetrics'] = $lkdMetrics;
 
         return view('content-planner/input-kpi', $data);
     }
@@ -335,11 +347,13 @@ class ContentPlannerController extends BaseController
 
     public function updateTrend()
     {
-        $trendName = $this->request->getPost('trend_name');
+        $newTrendName = $this->request->getPost('trend_name');
+        $oldTrendName = $this->request->getPost('old_trend_name');
         $media = $this->request->getPost('media');
         $year = $this->request->getPost('year');
 
         $data = [
+            'nama_trend' => $newTrendName,
             'januari' => $this->request->getPost('januari'),
             'februari' => $this->request->getPost('februari'),
             'maret' => $this->request->getPost('maret'),
@@ -355,7 +369,7 @@ class ContentPlannerController extends BaseController
         ];
 
         $model = new TrendModel($media);
-        $model->where('nama_trend', $trendName)
+        $model->where('nama_trend', $oldTrendName)
             ->where('created_at', $year)
             ->set($data)
             ->update();
