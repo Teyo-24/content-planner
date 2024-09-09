@@ -245,7 +245,7 @@
 </head>
 
 <body>
-    <!-- navbar -->
+    <!-- navbar
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
             <a class="navbar-brand" href="#">Content Calendar</a>
@@ -265,7 +265,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
     <!-- callender -->
     <div class="container mt-4">

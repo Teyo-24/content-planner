@@ -162,7 +162,7 @@
         <!-- Info Date -->
         <div class="mb-4 left-3">
           <div class="d-flex justify-content-between align-items-center">
-            <h5 id="dateDisplay" class="m-0"></h5>
+            <h5 id="dateDisplay" class="m-0 text-primary fw-bold"></h5>
           </div>
         </div>
 
@@ -271,7 +271,7 @@
             <!-- Button Add Content -->
             <div class="d-flex justify-content-center mt-4">
               <button type="submit" class="btn btn-primary">
-                Submit
+                Simpan
               </button>
             </div>
 
@@ -291,15 +291,15 @@
     function readURL(input) {
       if (input.files && input.files[0]) {
         var reader = new FileReader();
-        reader.onload = function (e) {
+        reader.onload = function(e) {
           $('#imageResult').attr('src', e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
       }
     }
 
-    $(function () {
-      $('#upload').on('change', function () {
+    $(function() {
+      $('#upload').on('change', function() {
         readURL(this);
       });
     });
@@ -315,7 +315,7 @@
       infoArea.textContent = 'File name: ' + fileName;
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       var dateInput = document.getElementById('dateInput');
       var dateDisplay = document.getElementById('dateDisplay');
 
@@ -334,7 +334,7 @@
       // Set nilai input date ke tanggal saat ini
       dateInput.valueAsDate = today;
 
-      dateInput.addEventListener('change', function () {
+      dateInput.addEventListener('change', function() {
         var selectedDate = new Date(dateInput.value);
         var formattedDate = selectedDate.toLocaleDateString('id-ID', options);
 
